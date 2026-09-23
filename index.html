@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baseline — Tennis Club & Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+  <main>
+    <!-- Hero -->
+    <section id="hero">
+      <div class="hero-bg">
+        <div class="hero-bg-inner" id="heroBg">
+          <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/hero/hero-court.webp" alt="Player lunging for a shot on a hard court" fetchpriority="high">
+        </div>
+        <div class="hero-overlay"></div>
+      </div>
+      
+      <header>
+        <div class="header-inner">
+          <nav class="header-nav">
+            <a href="#programs">Programs & Coaches</a>
+            <a href="#facilities">Club & Events</a>
+          </nav>
+          
+          <div class="header-brand">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M4.8 5.6A9 9 0 0 0 4.8 18.4"/>
+              <path d="M19.2 5.6a9 9 0 0 1 0 12.8"/>
+            </svg>
+            <span>Baseline</span>
+          </div>
+          
+          <div class="header-actions">
+            <button class="btn-book-visit" onclick="openModal()">Book a Visit</button>
+            <button class="burger" onclick="openMenu()" aria-label="Open menu">
+              <div class="burger-lines">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </header>
+      
+      <h1 id="heroTitle" class="hero-title"></h1>
+      
+      <div class="hero-bottom">
+        <div class="hero-tagline" id="heroTagline"></div>
+        
+        <div class="hero-right">
+          <div class="collection-slider" id="collectionSlider"></div>
+          
+          <article class="membership-card" id="membershipCard">
+            <div class="membership-left">
+              <div class="membership-value">9K+</div>
+              <div class="membership-avatars">
+                <div class="membership-avatar" style="background:#5790e6"></div>
+                <div class="membership-avatar" style="background:#c2e029"></div>
+                <div class="membership-avatar" style="background:#0b6e97"></div>
+                <div class="membership-avatar" style="background:#ffffff"></div>
+              </div>
+              <div class="membership-caption">Members on court</div>
+            </div>
+            <img class="membership-card-img" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/1.webp" alt="Player waiting to return on a clay court" loading="lazy">
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust -->
+    <section id="trust">
+      <div class="trust-top">
+        <div class="trust-percent" id="trustPercent">
+          <div class="trust-percent-value">100%</div>
+          <div class="trust-percent-caption">Coaching built around your game</div>
+        </div>
+        
+        <article class="trust-badge" id="trustBadge">
+          <div class="trust-badge-chip">#01</div>
+          <div class="trust-badge-content">
+            <h3>Trusted by serious players</h3>
+            <p>From first-timers to nationally ranked juniors, players train here because the progress shows up on the scoreboard.</p>
+          </div>
+        </article>
+      </div>
+      
+      <h2 id="trustTitle" class="trust-title"></h2>
+      
+      <figure class="trust-coach" id="trustCoach">
+        <img class="trust-coach-img" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/5.webp" alt="Head coach set in a ready stance on clay">
+        <figcaption class="trust-coach-caption">
+          <div class="trust-coach-name">Marco Vidal</div>
+          <div class="trust-coach-role">Head Coach</div>
+        </figcaption>
+      </figure>
+      
+      <div class="trust-controls">
+        <button class="arrow-btn outline" onclick="prevTrustSlide()" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1)">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </button>
+        
+        <div class="carousel-dots dark" id="trustDots"></div>
+        
+        <button class="arrow-btn solid" onclick="nextTrustSlide()" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Programs -->
+    <section id="programs">
+      <div class="eyebrow dark">
+        <div class="eyebrow-dot"></div>
+        Training programs
+      </div>
+      
+      <h2 id="programsTitle" class="stacked-title"></h2>
+      
+      <ul class="programs-list" id="programsList"></ul>
+    </section>
+
+    <!-- Facilities -->
+    <section id="facilities">
+      <div class="facilities-grid">
+        <div class="facilities-intro">
+          <img class="facilities-icon" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/3.webp" alt="Player stretching for a forehand on clay" loading="lazy">
+          
+          <h2 id="facilitiesTitle" class="facilities-title"></h2>
+          
+          <p class="facilities-body" id="facilitiesBody"></p>
+        </div>
+        
+        <div class="facilities-cards" id="facilitiesCards"></div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section id="stats">
+      <div class="eyebrow light">
+        <div class="eyebrow-dot"></div>
+        By the numbers
+      </div>
+      
+      <h2 id="statsTitle" class="stacked-title"></h2>
+      
+      <dl class="stats-grid" id="statsGrid"></dl>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+      <div class="eyebrow dark">
+        <div class="eyebrow-dot"></div>
+        What players say
+      </div>
+      
+      <h2 id="testimonialsTitle" class="stacked-title"></h2>
+      
+      <ul class="testimonials-grid" id="testimonialsGrid"></ul>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+      <div class="footer-cta">
+        <div>
+          <div class="eyebrow light">
+            <div class="eyebrow-dot"></div>
+            Get started
+          </div>
+          
+          <p id="footerCtaTitle" class="footer-cta-title"></p>
+        </div>
+        
+        <button class="pill-btn light" onclick="openModal()">
+          Book a Visit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="footer-columns">
+        <div class="footer-brand">
+          <div class="footer-brand-mark">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M4.8 5.6A9 9 0 0 0 4.8 18.4"/>
+              <path d="M19.2 5.6a9 9 0 0 1 0 12.8"/>
+            </svg>
+            <span>Baseline</span>
+          </div>
+          
+          <p class="footer-brand-blurb">A members' tennis club and academy where focused coaching meets championship courts.</p>
+          
+          <address class="footer-brand-address">
+            <a href="mailto:play@baseline.club">play@baseline.club</a>
+            <a href="tel:+12125550148">+1 (212) 555-0148</a>
+            <div class="address-line">120 Court Lane, New York</div>
+          </address>
+        </div>
+        
+        <nav class="footer-nav">
+          <h4>Programs</h4>
+          <ul>
+            <li><a href="#junior">Junior Development</a></li>
+            <li><a href="#performance">Performance Squad</a></li>
+            <li><a href="#adult">Adult Clinics</a></li>
+            <li><a href="#private">Private Coaching</a></li>
+          </ul>
+        </nav>
+        
+        <nav class="footer-nav">
+          <h4>Club</h4>
+          <ul>
+            <li><a href="#membership">Membership</a></li>
+            <li><a href="#facilities">Facilities</a></li>
+            <li><a href="#club">Events</a></li>
+            <li><a href="#shop">Pro Shop</a></li>
+          </ul>
+        </nav>
+        
+        <nav class="footer-nav">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#programs">Coaches</a></li>
+            <li><a href="#careers">Careers</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+      
+      <div class="footer-bottom">
+        <div>© 2026 Baseline Tennis Club. All rights reserved.</div>
+        
+        <nav class="footer-social">
+          <a href="#instagram">Instagram</a>
+          <a href="#x">X</a>
+          <a href="#youtube">YouTube</a>
+          <a href="#linkedin">LinkedIn</a>
+        </nav>
+        
+        <nav class="footer-legal">
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+        </nav>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" onclick="closeModal()"></div>
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="modal-panel" id="modalPanel">
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow dark">
+            <div class="eyebrow-dot"></div>
+            Book a visit
+          </div>
+          
+          <h2 id="modalTitle" class="modal-title"></h2>
+        </div>
+        
+        <button class="modal-close" onclick="closeModal()" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
+      </div>
+      
+      <form class="modal-form" id="contactForm" novalidate>
+        <div class="form-field">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Alex Rivera" required>
+        </div>
+        
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@email.com" required>
+        </div>
+        
+        <div class="form-field">
+          <label for="message">What would you like to play?</label>
+          <textarea id="message" rows="3" placeholder="I'd love to try a private lesson on the clay courts…"></textarea>
+        </div>
+        
+        <button type="submit" class="pill-btn solid form-submit">
+          Request a visit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </button>
+      </form>
+      
+      <div class="modal-success" id="modalSuccess" style="display:none">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <div class="success-title">Request received</div>
+        <div class="success-text" id="successText">Thanks there — our team will be in touch to lock in your visit.</div>
+        <button class="pill-btn solid" onclick="closeModal()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Overlay -->
+  <div class="menu-backdrop" id="menuBackdrop" onclick="closeMenu()"></div>
+  <div class="menu-overlay" id="menuOverlay">
+    <div class="menu-panel" id="menuPanel">
+      <div class="menu-header">
+        <div class="menu-brand">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M4.8 5.6A9 9 0 0 0 4.8 18.4"/>
+            <path d="M19.2 5.6a9 9 0 0 1 0 12.8"/>
+          </svg>
+          <span>Baseline</span>
+        </div>
+        
+        <button class="menu-close" onclick="closeMenu()" aria-label="Close menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
+      </div>
+      
+      <nav class="menu-nav" id="menuNav">
+        <a href="#programs" onclick="closeMenu()">Programs</a>
+        <a href="#facilities" onclick="closeMenu()">Facilities</a>
+        <a href="#testimonials" onclick="closeMenu()">Reviews</a>
+        <a href="#contact" onclick="closeMenu()">Contact</a>
+      </nav>
+      
+      <div class="menu-footer">
+        <button class="pill-btn light" onclick="closeMenu(); setTimeout(openModal, 300)">
+          Book a Visit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </button>
+        
+        <nav class="menu-social">
+          <a href="#instagram">Instagram</a>
+          <a href="#x">X</a>
+          <a href="#youtube">YouTube</a>
+          <a href="#linkedin">LinkedIn</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-wordmark" id="loaderWordmark">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M4.8 5.6A9 9 0 0 0 4.8 18.4"/>
+        <path d="M19.2 5.6a9 9 0 0 1 0 12.8"/>
+      </svg>
+      <span>Baseline</span>
+    </div>
+    
+    <div class="loader-progress">
+      <div class="loader-progress-fill" id="loaderFill"></div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
