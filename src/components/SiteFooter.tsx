@@ -1,5 +1,5 @@
 const whatsapp = 'https://wa.me/6281997039213';
-const map = 'https://maps.google.com/?q=Jl.+Mliwis+No.20,+Kerten,+Laweyan,+Surakarta+57143';
+const map = 'https://maps.app.goo.gl/SBG6g1cgNLTNwhm9A?g_st=aw';
 
 export default function SiteFooter() {
   return (
