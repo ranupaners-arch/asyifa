@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import SiteFooter from './SiteFooter';
-import randuImage from '../assets/honey-randu.jpg';
+import randuImage from '../assets/madu-randu.jpeg';
 import akasiaImage from '../assets/honey-akasia.jpg';
-import klancengImage from '../assets/honey-klanceng.jpg';
+import maduManggaImage from '../assets/madu-mangga.jpeg';
+import maduKelengkengImage from '../assets/madu-kelengkeng.jpeg';
+import maduRambutanImage from '../assets/madu-rambutan.jpeg';
 import multifloraImage from '../assets/honey-multiflora.jpg';
+import maduHutanSuperImage from '../assets/madu-hutan-super.jpeg';
 
 const sizes = ['250 ml', '500 ml', '1 kg'] as const;
 
 const products = [
   { name: 'Madu Randu', note: 'Ilustrasi bunga randu', image: randuImage },
-  { name: 'Madu Akasia', note: 'Ilustrasi bunga akasia', image: akasiaImage },
-  { name: 'Madu Klanceng', note: 'Ilustrasi madu klanceng', image: klancengImage },
-  { name: 'Madu Multiflora', note: 'Ilustrasi aneka bunga', image: multifloraImage }
+  { name: 'Madu Hutan Super', note: 'Foto produk Madu Hutan Super', image: maduHutanSuperImage },
+  { name: 'Madu Mangga', note: 'Foto produk Madu Mangga', image: maduManggaImage },
+  { name: 'Madu Kelengkeng', note: 'Foto produk Madu Kelengkeng', image: maduKelengkengImage },
+  { name: 'Madu Rambutan', note: 'Foto produk Madu Rambutan', image: maduRambutanImage }
 ];
 
 function inquiryLink(product: string, size: string) {
@@ -49,7 +53,17 @@ export default function ProductCatalog() {
           <div className="eyebrow light"><span className="eyebrow-dot" />Produk pilihan</div>
           <h1 id="product-title">Madu Barokah</h1>
           <p>Pilih varian dan ukuran untuk menanyakan ketersediaan serta harga kepada admin.</p>
-          <a className="pill-btn light" href="#produk">Lihat pilihan madu</a>
+          <div className="product-intro-actions">
+            <a className="pill-btn light" href="#produk">Lihat pilihan madu</a>
+            <a
+              className="pill-btn light"
+              href="https://wa.me/6281997039213?text=Halo%20Asy-Syifa%2C%20saya%20ingin%20memesan%20Madu%20Barokah."
+              target="_blank"
+              rel="noreferrer"
+            >
+              Pesan madu via WhatsApp
+            </a>
+          </div>
         </section>
 
         <section className="product-list" id="produk" aria-label="Pilihan produk madu">
@@ -97,7 +111,6 @@ export default function ProductCatalog() {
               );
             })}
           </div>
-          <p className="product-disclaimer">Katalog ini masih dummy. Nama, ukuran, stok, harga, foto, dan kemasan aktual perlu dikonfirmasi. Gambar hanya ilustrasi, bukan foto produk yang dijual.</p>
         </section>
       </main>
       <SiteFooter />

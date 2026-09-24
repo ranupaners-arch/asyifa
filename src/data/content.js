@@ -1,5 +1,5 @@
 // Landing page copy and display data for Rumah Terapi Asy-Syifa.
-import { LOGO_IMAGE, JASMINE_IMAGE, RANUPANE_IMAGE } from './assets.js';
+import { LOGO_IMAGE, JASMINE_IMAGE } from './assets.js';
 import { packageGroups, priceGroups } from './prices.js';
 
 // Hero
@@ -27,7 +27,7 @@ export const trustSummary = {
 // Dummy therapist profiles; replace with approved staff details and photos.
 export const trustSlides = [
   { headline: ['Terapi', 'Holistik', 'untuk', 'Kesehatan'], initials: 'JP', photo: JASMINE_IMAGE, name: 'Jasmine Puspa Medina', role: 'Terapis Akupuntur' },
-  { headline: ['Pendekatan', 'Terarah', 'bagi', 'Keluarga'], initials: 'RA', photo: RANUPANE_IMAGE, name: 'Ranupane Rimba Argana', role: 'Terapis Akupunktur · Dummy' },
+  { headline: ['Pendekatan', 'Terarah', 'bagi', 'Keluarga'], initials: 'RA', name: 'Ranupane Rimba Argana', role: 'Terapis Akupunktur · Dummy' },
   { headline: ['Ruang', 'Nyaman', 'untuk', 'Perawatan'], initials: 'SR', name: 'Siti Rahma', role: 'Terapis Akupresur · Dummy' }
 ];
 

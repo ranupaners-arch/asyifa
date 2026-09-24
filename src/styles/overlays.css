@@ -107,6 +107,7 @@
   .form-field input,
   .form-field select,
   .form-field textarea {
+    box-sizing: border-box;
     width: 100%;
     border-radius: var(--radius-xl);
     border: 1px solid var(--hairline);
@@ -115,6 +116,12 @@
     font-size: 0.875rem;
     font-family: inherit;
     transition: border-color 200ms;
+  }
+
+  .form-field select {
+    min-height: 4.25rem;
+    padding: 1.125rem 1.25rem;
+    font-size: 0.875rem;
   }
 
   .form-field input:focus,
