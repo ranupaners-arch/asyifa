@@ -46,6 +46,7 @@ export default function SiteFooter() {
             <li><a href="index.html#tentang">Tentang kami</a></li>
             <li><a href="index.html#jadwal-bekam">Jadwal bekam</a></li>
             <li><a href="index.html#madu">Madu Barokah</a></li>
+            <li><a href="produk.html">Katalog produk madu</a></li>
             <li><a href="index.html#testimonials">Testimoni</a></li>
           </ul>
         </nav>

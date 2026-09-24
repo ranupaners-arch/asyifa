@@ -11,7 +11,9 @@ npm run dev
 
 Entry React/TypeScript berada di `src/main.tsx`; `src/App.tsx` me-mount enam jenis halaman. Markup lama dipertahankan di HTML sebagai jembatan agar layout, animasi, dan interaksi tetap identik selama migrasi bertahap.
 
-Halaman utama tersedia di `/`, daftar harga di `/harga.html`, serta halaman detail Paket Pengobatan, Paket Perawatan, Paket Spesialis, dan Paket Basic di masing-masing `/paket-*.html`.
+Halaman utama tersedia di `/`, daftar harga di `/harga.html`, katalog madu contoh di `/produk.html`, serta halaman detail Paket Pengobatan, Paket Perawatan, Paket Spesialis, dan Paket Basic di masing-masing `/paket-*.html`.
+
+Katalog madu menggunakan gambar ilustrasi dan pilihan produk dummy. Harga, ukuran, stok, nama, serta foto kemasan aktual harus dikonfirmasi sebelum dipublikasikan; belum ada klaim khasiat atau harga yang ditampilkan.
 
 Build production:
 

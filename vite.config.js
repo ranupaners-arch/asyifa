@@ -11,6 +11,7 @@ export default defineConfig({
       input: {
         home: resolve(import.meta.dirname, 'index.html'),
         pricing: resolve(import.meta.dirname, 'harga.html'),
+        products: resolve(import.meta.dirname, 'produk.html'),
         packageTreatment: resolve(import.meta.dirname, 'paket-pengobatan.html'),
         packageCare: resolve(import.meta.dirname, 'paket-perawatan.html'),
         packageSpecialist: resolve(import.meta.dirname, 'paket-spesialis.html'),

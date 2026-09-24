@@ -5,37 +5,61 @@ import { collections, trustSlides } from '../data/content.js';
 let trustSlideIndex = 0;
 let trustCoachTimeout;
 let captionTimeout;
+let trustTitleTimeout;
 let collectionSlideIndex = 0;
 let collectionInterval;
 
-export function updateTrustTitle(words) {
+export function updateTrustTitle(words, direction = 0) {
   const trustTitle = document.getElementById('trustTitle');
-  const rows = [
-    [words[0], words[1]],
-    [words[2], words[3]]
-  ];
+  clearTimeout(trustTitleTimeout);
 
-  trustTitle.innerHTML = rows.map((row, rowIdx) => {
-    return `<div class="trust-title-row">
-      ${row.map((word, i) => {
-        const isThird = rowIdx === 1 && i === 0;
-        const cls = isThird ? 'ink' : 'ghost';
-        return `<span class="trust-word ${cls}"><span>${word}</span></span>`;
-      }).join('')}
-    </div>`;
-  }).join('');
+  const renderTitle = () => {
+    const rows = [
+      [words[0], words[1]],
+      [words[2], words[3]]
+    ];
 
-  // Reveal words
-  setTimeout(() => {
-    const wordSpans = trustTitle.querySelectorAll('.trust-word span');
-    wordSpans.forEach((span, i) => {
-      setTimeout(() => {
+    trustTitle.innerHTML = rows.map((row, rowIdx) => {
+      return `<div class="trust-title-row">
+        ${row.map((word, i) => {
+          const isThird = rowIdx === 1 && i === 0;
+          const cls = isThird ? 'ink' : 'ghost';
+          return `<span class="trust-word ${cls}"><span>${word}</span></span>`;
+        }).join('')}
+      </div>`;
+    }).join('');
+
+    if (direction) {
+      trustTitle.style.transition = 'none';
+      trustTitle.style.opacity = '0';
+      trustTitle.style.transform = `translateX(${direction * 1.5}rem)`;
+      trustTitle.offsetHeight;
+      trustTitle.style.transition = 'opacity 420ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1)';
+      trustTitle.style.opacity = '1';
+      trustTitle.style.transform = 'translateX(0)';
+    }
+
+    // Reveal each word with a short upward stagger as the new slide enters.
+    trustTitleTimeout = setTimeout(() => {
+      const wordSpans = trustTitle.querySelectorAll('.trust-word span');
+      wordSpans.forEach((span, i) => {
+        setTimeout(() => {
         span.style.transition = 'transform 900ms cubic-bezier(0.22, 1, 0.36, 1), opacity 900ms ease';
         span.style.transform = 'translateY(0)';
-        span.style.opacity = '1';
-      }, i * 80);
-    });
-  }, 50);
+          span.style.opacity = '1';
+        }, i * 80);
+      });
+    }, 50);
+  };
+
+  if (direction && trustTitle.hasChildNodes()) {
+    trustTitle.style.transition = 'opacity 180ms ease, transform 220ms ease';
+    trustTitle.style.opacity = '0';
+    trustTitle.style.transform = `translateX(${-direction * 1.25}rem)`;
+    trustTitleTimeout = setTimeout(renderTitle, 190);
+  } else {
+    renderTitle();
+  }
 }
 
 export function updateTrustCoach(slide, direction = 1) {
@@ -91,7 +115,7 @@ export function setTrustSlide(index, direction = 1) {
   trustSlideIndex = index;
   const slide = trustSlides[index];
 
-  updateTrustTitle(slide.headline);
+  updateTrustTitle(slide.headline, direction);
   updateTrustCoach(slide, direction);
 
 }

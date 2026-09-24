@@ -28,8 +28,8 @@
   }
 
   .trust-percent {
-    width: 7rem;
-    height: 7rem;
+    width: 7.5rem;
+    height: 7.5rem;
     border-radius: var(--radius-pill);
     background: var(--surface);
     display: flex;
@@ -41,25 +41,25 @@
 
   @media (min-width: 640px) {
     .trust-percent {
-      width: 8rem;
-      height: 8rem;
+      width: 8.5rem;
+      height: 8.5rem;
     }
   }
 
   .trust-percent-value {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 500;
   }
 
   .trust-percent-caption {
-    font-size: 0.6rem;
+    font-size: 0.875rem;
     color: var(--ink-soft);
     max-width: 7em;
     text-align: center;
   }
 
   .trust-badge {
-    max-width: 28rem;
+    max-width: 32rem;
     display: flex;
     gap: 1rem;
     border-radius: var(--radius-card);
@@ -74,20 +74,20 @@
   .trust-badge-chip {
     border-radius: var(--radius-xl);
     background: var(--background);
-    padding: 0.5rem 1rem;
-    font-size: 1.25rem;
+    padding: 0.65rem 1.1rem;
+    font-size: 1.4rem;
     font-weight: 500;
     white-space: nowrap;
   }
 
   .trust-badge-content h3 {
-    font-size: 1.125rem;
+    font-size: 1.3rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
   }
 
   .trust-badge-content p {
-    font-size: 0.75rem;
+    font-size: 0.95rem;
     color: var(--ink-soft);
     line-height: 1.5;
   }
@@ -153,7 +153,7 @@
   .trust-coach-img {
     display: grid;
     place-items: center;
-    width: 100%;
+    width: 150%;
     aspect-ratio: 3/4;
     border-radius: var(--radius-card);
     background: var(--color-primary);
@@ -166,23 +166,26 @@
   .trust-coach-caption {
     position: absolute;
     left: 0.75rem;
-    right: 0.75rem;
+    width: calc(150% - 1.5rem);
     bottom: 0.75rem;
     border-radius: var(--radius-xl);
-    background: rgba(8, 31, 19, 0.4);
+    background: rgba(8, 31, 19, 0.76);
     color: white;
     backdrop-filter: blur(8px);
-    padding: 0.5rem 0.75rem;
+    padding: 0.7rem 0.9rem;
   }
 
   .trust-coach-name {
-    font-size: 0.875rem;
+    font-size: 1rem;
+    line-height: 1.3;
     font-weight: 500;
   }
 
   .trust-coach-role {
-    font-size: 0.65rem;
-    opacity: 0.8;
+    margin-top: 0.15rem;
+    font-size: 0.8rem;
+    line-height: 1.35;
+    opacity: 0.9;
   }
 
   .trust-controls {
@@ -346,7 +349,8 @@
   }
 
   .program-desc {
-    font-size: 0.875rem;
+    font-size: 1rem;
+    line-height: 1.55;
     color: var(--ink-soft);
   }
 
@@ -411,7 +415,7 @@
 
   .facilities-body {
     margin-top: 1.5rem;
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: var(--ink-soft);
     max-width: 20rem;
   }
@@ -481,12 +485,12 @@
   }
 
   .facility-name {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 500;
   }
 
   .facility-desc {
-    font-size: 0.65rem;
+    font-size: 0.85rem;
     opacity: 0.85;
   }
 
@@ -560,7 +564,7 @@
   .about-details,
   .about-motto {
     margin-top: 1rem;
-    font-size: 0.75rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: var(--ink-soft);
   }
@@ -572,41 +576,266 @@
 
   .about-translation {
     color: var(--ink-soft);
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 
   .schedule-section {
-    background: var(--surface);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    margin: 0.75rem 0 5rem;
+    padding: 0;
     border-radius: var(--radius-card-lg);
-    margin-top: 0.75rem;
-    padding: 4rem 1.5rem;
+    background: var(--background);
+  }
+
+  .schedule-intro {
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 1.5rem 2.5rem;
+    border-radius: var(--radius-card-lg);
+    color: var(--on-brand);
+    background: var(--brand-deep);
   }
 
   @media (min-width: 640px) {
-    .schedule-section { padding: 5rem 2.5rem; }
+    .schedule-intro { padding: 4rem 2.5rem 3rem; }
   }
 
-  .schedule-content {
+  .schedule-intro-row {
+    position: relative;
+    z-index: 1;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
-    margin-top: 1rem;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2.5rem;
   }
 
-  @media (min-width: 768px) {
-    .schedule-content {
-      flex-direction: row;
-      align-items: flex-end;
-      justify-content: space-between;
-    }
+  .schedule-kicker {
+    margin-bottom: 0.85rem;
+    color: var(--brand);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .schedule-intro h2 {
+    max-width: 48rem;
+    font-size: clamp(2.5rem, 6vw, 5.75rem);
+    font-weight: 500;
+    letter-spacing: -0.065em;
+    line-height: 0.98;
   }
 
   .schedule-copy {
+    position: relative;
+    z-index: 1;
     max-width: 34rem;
-    margin-top: 1rem;
-    color: var(--ink-soft);
+    margin-top: 1.25rem;
+    color: rgba(255, 255, 255, 0.72);
     line-height: 1.6;
+  }
+
+  .schedule-watermark {
+    position: absolute;
+    right: -0.04em;
+    bottom: -0.34em;
+    z-index: 0;
+    color: rgba(255, 255, 255, 0.045);
+    font-size: clamp(9rem, 25vw, 23rem);
+    font-weight: 500;
+    letter-spacing: -0.1em;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .schedule-dates {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin: -1.25rem 1.25rem 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .schedule-date {
+    position: relative;
+    display: flex;
+    min-height: 15rem;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.64);
+    border-radius: var(--radius-card);
+    background: rgba(255, 255, 255, 0.48);
+    box-shadow: 0 1rem 2.5rem rgba(8, 31, 19, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+    transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  }
+
+  .schedule-date:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 1.4rem 2.8rem rgba(8, 31, 19, 0.1);
+  }
+
+  .schedule-date-top,
+  .schedule-date-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .schedule-date-top {
+    color: var(--ink-soft);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+  }
+
+  .schedule-date-bottom {
+    align-items: flex-end;
+    flex-direction: column;
+    color: var(--ink-soft);
+    font-size: 0.75rem;
+    text-align: right;
+  }
+
+  .schedule-date strong {
+    align-self: flex-start;
+    color: var(--brand-deep);
+    font-size: clamp(5rem, 10vw, 8.5rem);
+    font-weight: 500;
+    letter-spacing: -0.1em;
+    line-height: 1;
+  }
+
+  .schedule-date-featured {
+    border-color: rgba(197, 160, 89, 0.62);
+    background: rgba(255, 255, 255, 0.64);
+    transform: translateY(-0.9rem);
+  }
+
+  .schedule-date-featured:hover {
+    transform: translateY(-1.2rem);
+  }
+
+  .schedule-date-featured .schedule-date-top,
+  .schedule-date-featured .schedule-date-bottom {
+    color: var(--ink-soft);
+  }
+
+  .schedule-date-featured strong {
+    color: var(--brand);
+  }
+
+  .schedule-date-mark {
+    position: absolute;
+    right: 1rem;
+    bottom: 1.8rem;
+    color: var(--brand);
+    font-size: 2rem;
+  }
+
+  .schedule-hadith {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    max-width: 62rem;
+    margin: 2.5rem auto 0;
+    padding: 1.5rem 2rem;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card-lg);
+    background: var(--surface);
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .schedule-hadith-mark {
+    align-self: start;
+    color: var(--brand);
+    font-size: 4rem;
+    line-height: 0.8;
+  }
+
+  .schedule-hadith cite {
+    display: block;
+    margin-top: 0.75rem;
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-style: normal;
+  }
+
+  .schedule-hadith > a {
+    display: grid;
+    width: 2.75rem;
+    aspect-ratio: 1;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--on-brand);
+    background: var(--brand-deep);
+    font-size: 1.25rem;
+    text-decoration: none;
+    transition: background 180ms ease, transform 180ms ease;
+  }
+
+  .schedule-hadith > a:hover {
+    transform: translate(2px, -2px);
+    background: var(--brand-light);
+  }
+
+  @media (max-width: 639px) {
+    .schedule-intro-row {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .schedule-dates {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+      margin-right: 0.6rem;
+      margin-left: 0.6rem;
+    }
+
+    .schedule-date {
+      min-height: 11rem;
+      padding: 0.75rem 0.55rem;
+      border-radius: 1rem;
+    }
+
+    .schedule-date-top {
+      flex-direction: column;
+      font-size: 0.52rem;
+    }
+
+    .schedule-date strong {
+      font-size: clamp(3rem, 13vw, 5rem);
+    }
+
+    .schedule-date-bottom {
+      font-size: 0.58rem;
+    }
+
+    .schedule-date-featured {
+      transform: translateY(-0.6rem);
+    }
+
+    .schedule-hadith {
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem;
+      margin: 1.75rem 0.6rem 0;
+      padding: 1.25rem;
+      font-size: 0.9rem;
+    }
+
+    .schedule-hadith > a {
+      grid-column: 2;
+      justify-self: end;
+    }
   }
 
   .honey-section {

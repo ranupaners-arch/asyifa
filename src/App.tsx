@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import SiteFooter from './components/SiteFooter';
+import ProductCatalog from './components/ProductCatalog';
 
-type PageKind = 'home' | 'pricing' | 'service';
+type PageKind = 'home' | 'pricing' | 'service' | 'products';
 
 interface AppProps {
   page: PageKind;
@@ -11,6 +12,10 @@ interface AppProps {
 
 export default function App({ page, markup }: AppProps) {
   const [footerMount, setFooterMount] = useState<HTMLElement | null>(null);
+
+  if (page === 'products') {
+    return <ProductCatalog />;
+  }
 
   useEffect(() => {
     setFooterMount(document.getElementById('site-footer-mount'));

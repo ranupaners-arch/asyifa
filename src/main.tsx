@@ -8,7 +8,7 @@ if (!mount) {
 }
 
 const page = mount.dataset.page;
-if (page !== 'home' && page !== 'pricing' && page !== 'service') {
+if (page !== 'home' && page !== 'pricing' && page !== 'service' && page !== 'products') {
   throw new Error(`Unsupported page type: ${page ?? '(missing)'}`);
 }
 
