@@ -128,3 +128,5 @@ if (window.innerWidth > 768) {
     });
   }
 }
+
+export {};

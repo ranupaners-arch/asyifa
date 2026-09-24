@@ -184,7 +184,7 @@
 
   .trust-coach-role {
     margin-top: 0.15rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
     line-height: 1.35;
     opacity: 0.9;
   }
@@ -862,6 +862,14 @@
 
   .honey-copy {
     max-width: 44rem;
+  }
+
+  .honey-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    transform: translateY(-0.75rem);
   }
 
   .honey-copy > p {

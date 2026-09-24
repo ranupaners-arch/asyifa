@@ -14,6 +14,16 @@ export default function App({ page, markup }: AppProps) {
   const [footerMount, setFooterMount] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
+    if (page !== 'home') {
+      void Promise.all([
+        import('./modules/smooth-scroll.js'),
+        import('./modules/page-effects.js'),
+        import('./modules/hover-effects.js')
+      ]).then(([{ initLenis }, { initializePageEffects }]) => {
+        initLenis();
+        initializePageEffects();
+      });
+    }
     if (page === 'products') return;
     setFooterMount(document.getElementById('site-footer-mount'));
     if (page === 'home') {

@@ -53,17 +53,7 @@ export default function ProductCatalog() {
           <div className="eyebrow light"><span className="eyebrow-dot" />Produk pilihan</div>
           <h1 id="product-title">Madu Barokah</h1>
           <p>Pilih varian dan ukuran untuk menanyakan ketersediaan serta harga kepada admin.</p>
-          <div className="product-intro-actions">
-            <a className="pill-btn light" href="#produk">Lihat pilihan madu</a>
-            <a
-              className="pill-btn light"
-              href="https://wa.me/6281997039213?text=Halo%20Asy-Syifa%2C%20saya%20ingin%20memesan%20Madu%20Barokah."
-              target="_blank"
-              rel="noreferrer"
-            >
-              Pesan madu via WhatsApp
-            </a>
-          </div>
+          <a className="pill-btn light" href="#produk">Lihat pilihan madu</a>
         </section>
 
         <section className="product-list" id="produk" aria-label="Pilihan produk madu">
@@ -113,7 +103,9 @@ export default function ProductCatalog() {
           </div>
         </section>
       </main>
-      <SiteFooter />
+      <div className="product-footer-shell">
+        <SiteFooter />
+      </div>
     </>
   );
 }
