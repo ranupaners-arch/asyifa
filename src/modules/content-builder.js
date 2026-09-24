@@ -2,6 +2,7 @@
 import {
   titleWords,
   taglineLines,
+  trustSummary,
   collections,
   trustSlides,
   programLines,
@@ -33,6 +34,17 @@ export function buildContent() {
     `<span class="tagline-line"><span>${line}</span></span>`
   ).join('');
 
+  const trustPercentValue = document.querySelector('#trustPercent .trust-percent-value');
+  const trustPercentCaption = document.querySelector('#trustPercent .trust-percent-caption');
+  const trustBadgeChip = document.querySelector('#trustBadge .trust-badge-chip');
+  const trustBadgeTitle = document.querySelector('#trustBadge h3');
+  const trustBadgeBody = document.querySelector('#trustBadge p');
+  if (trustPercentValue) trustPercentValue.textContent = trustSummary.serviceCount;
+  if (trustPercentCaption) trustPercentCaption.textContent = trustSummary.serviceLabel;
+  if (trustBadgeChip) trustBadgeChip.textContent = trustSummary.badgeNumber;
+  if (trustBadgeTitle) trustBadgeTitle.textContent = trustSummary.badgeTitle;
+  if (trustBadgeBody) trustBadgeBody.textContent = trustSummary.badgeBody;
+
   // Collection slider
   const slider = document.getElementById('collectionSlider');
   slider.innerHTML = `
@@ -41,7 +53,7 @@ export function buildContent() {
       <div class="collection-card-content">
         <div class="collection-card-brand">${collections[0].brand}</div>
         <div class="collection-card-title">${collections[0].title}</div>
-      <a href="paket-pengobatan.html" class="collection-card-cta">${collections[0].cta} →</a>
+      <a href="${collections[0].href}" class="collection-card-cta">${collections[0].cta} →</a>
       </div>
     </div>
     <div class="carousel-dots light" id="collectionDots"></div>
@@ -54,6 +66,13 @@ export function buildContent() {
 
   // Trust title
   updateTrustTitle(trustSlides[0].headline);
+  const initialPortrait = document.querySelector('#trustCoach .trust-coach-img');
+  if (initialPortrait && trustSlides[0].photo) {
+    initialPortrait.style.backgroundImage = `url("${trustSlides[0].photo}")`;
+    initialPortrait.style.backgroundSize = 'cover';
+    initialPortrait.style.backgroundPosition = 'center';
+    initialPortrait.textContent = '';
+  }
 
   // Programs title
   const programsTitle = document.getElementById('programsTitle');
@@ -122,6 +141,10 @@ export function buildContent() {
       </dd>
     </div>
   `).join('');
+
+  const membershipValue = document.getElementById('membershipValue');
+  const therapyStat = stats.find(stat => stat.label === 'Jenis terapi');
+  if (membershipValue && therapyStat) membershipValue.textContent = therapyStat.value;
 
   // Testimonials title
   const testimonialsTitle = document.getElementById('testimonialsTitle');

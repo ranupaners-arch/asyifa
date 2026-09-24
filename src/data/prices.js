@@ -2,6 +2,7 @@ export const packageGroups = [
   {
     id: 'paket-pengobatan',
     title: 'Paket Pengobatan',
+    description: 'Pilihan kombinasi terapi untuk kebutuhan pengobatan. Konsultasikan kondisi dan pilihan layanan dengan terapis sebelum reservasi.',
     items: [
       { name: 'Paket Pengobatan (Bekam Sunnah + TMD + Akupunktur)', duration: '60 menit', price: 200000 },
       { name: 'Akupunktur Pre/Pasca Stroke + TMD + Bekam', duration: '60 menit', price: 200000 },
@@ -11,6 +12,7 @@ export const packageGroups = [
   {
     id: 'paket-perawatan',
     title: 'Paket Perawatan',
+    description: 'Rangkaian layanan untuk relaksasi, kebugaran, dan perawatan diri. Pilih kombinasi yang sesuai setelah berkonsultasi dengan terapis.',
     items: [
       { name: 'Paket Relaksasi (Pijat Tradisional, Refleksi, Totok Kepala & Herbal Drink)', duration: '90 menit', price: 150000 },
       { name: 'Bekam Sunnah, Bekam Relaksasi & TMD', duration: '60 menit', price: 175000 },
@@ -21,6 +23,7 @@ export const packageGroups = [
   {
     id: 'paket-spesialis',
     title: 'Paket Spesialis',
+    description: 'Pilihan paket dengan fokus kebutuhan khusus, termasuk promil, kecantikan, dan kebugaran. Detail layanan dapat dikonsultasikan terlebih dahulu.',
     items: [
       { name: 'Paket Stroke (Akupunktur, Akupresur, Stimulasi Saraf, Infrared, Pijat Tuina/Mobilisasi Sendi, Bekam Medis bila diperlukan, Fisioterapi Ringan, Herbal Support & Edukasi Gaya Hidup)', duration: '90 menit', price: 200000 },
       { name: 'Paket Saraf Kejepit (Akupunktur, Akupresur, Deep Tissue Massage & Infrared)', duration: '90 menit', price: 200000 },
@@ -39,6 +42,7 @@ export const packageGroups = [
   {
     id: 'paket-basic',
     title: 'Paket Basic',
+    description: 'Pilihan awal untuk mengenal layanan bekam dan terapi dasar Rumah Terapi Asy-Syifa.',
     items: [
       { name: 'Paket Basic (Healthy Start: Konsultasi, Akupresur, Refleksi Kaki & Herbal Drink)', duration: '60 menit', price: 100000 },
       { name: 'Paket Bekam Sunnah', duration: '75 menit', price: 125000 },

@@ -9,7 +9,7 @@ export function getIsReady() {
   return isReady;
 }
 
-export function startLoader() {
+export function startLoader(onReady) {
   const loader = document.getElementById('loader');
   const wordmark = document.getElementById('loaderWordmark');
   const fill = document.getElementById('loaderFill');
@@ -37,6 +37,7 @@ export function startLoader() {
     setTimeout(() => {
       loader.remove();
       triggerHeroReveals();
+      onReady?.();
     }, EXIT_MS);
   }, visibleTime);
 }

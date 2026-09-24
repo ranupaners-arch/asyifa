@@ -17,10 +17,14 @@ export function initializeHome() {
   if (initialized) return;
   initialized = true;
 
-  window.scrollTo(0, 0);
+  const targetId = window.location.hash.slice(1);
+  if (!targetId) window.scrollTo(0, 0);
   initLenis();
   stopLenis();
-  startLoader();
+  startLoader(() => {
+    const target = targetId && document.getElementById(targetId);
+    target?.scrollIntoView({ block: 'start' });
+  });
   buildContent();
   setupModalForm();
   setupParallax();

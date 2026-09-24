@@ -1,32 +1,50 @@
 // Landing page copy and display data for Rumah Terapi Asy-Syifa.
-import { LOGO_IMAGE } from './assets.js';
+import { LOGO_IMAGE, JASMINE_IMAGE, RANUPANE_IMAGE } from './assets.js';
+import { packageGroups, priceGroups } from './prices.js';
 
 // Hero
 export const titleWords = ['Sehat', 'Alami'];
 export const taglineLines = ['Rumah Terapi Asy-Syifa Surakarta', 'Terapi holistik untuk kualitas hidup'];
 
 // Hero service carousel
-export const collections = [
-  { img: LOGO_IMAGE, brand: 'Asy-Syifa', title: 'Bekam & Akupunktur', cta: 'Lihat paket', alt: 'Logo Rumah Terapi Asy-Syifa' },
-  { img: LOGO_IMAGE, brand: 'Asy-Syifa', title: 'Akupresur & TMD', cta: 'Lihat paket', alt: 'Logo Rumah Terapi Asy-Syifa' },
-  { img: LOGO_IMAGE, brand: 'Asy-Syifa', title: 'Beauty Care', cta: 'Lihat paket', alt: 'Logo Rumah Terapi Asy-Syifa' }
-];
+export const collections = priceGroups.map(group => ({
+  img: LOGO_IMAGE,
+  brand: 'Asy-Syifa',
+  title: group.title,
+  cta: 'Lihat layanan',
+  href: `harga.html#daftar-${group.id}`,
+  alt: `Logo Rumah Terapi Asy-Syifa untuk layanan ${group.title}`
+}));
+
+export const trustSummary = {
+  serviceCount: String(priceGroups.length),
+  serviceLabel: 'Bidang layanan',
+  badgeNumber: '#01',
+  badgeTitle: 'Terapi holistik untuk kesehatan',
+  badgeBody: 'Bekam sunnah, akupunktur, akupresur, dan beauty care tersedia dalam pilihan layanan yang dapat dikonsultasikan.'
+};
 
 // Dummy therapist profiles; replace with approved staff details and photos.
 export const trustSlides = [
-  { headline: ['Terapi', 'Holistik', 'untuk', 'Kesehatan'], initials: 'JP', name: 'Jasmine Puspa Medina', role: 'Terapis Akupuntur' },
-  { headline: ['Pendekatan', 'Terarah', 'bagi', 'Keluarga'], initials: 'RP', name: 'Rizky Pratama', role: 'Terapis Akupunktur · Dummy' },
+  { headline: ['Terapi', 'Holistik', 'untuk', 'Kesehatan'], initials: 'JP', photo: JASMINE_IMAGE, name: 'Jasmine Puspa Medina', role: 'Terapis Akupuntur' },
+  { headline: ['Pendekatan', 'Terarah', 'bagi', 'Keluarga'], initials: 'RA', photo: RANUPANE_IMAGE, name: 'Ranupane Rimba Argana', role: 'Terapis Akupunktur · Dummy' },
   { headline: ['Ruang', 'Nyaman', 'untuk', 'Perawatan'], initials: 'SR', name: 'Siti Rahma', role: 'Terapis Akupresur · Dummy' }
 ];
 
 // Package category teasers; full prices will live on harga.html.
 export const programLines = ['Paket Terapi', 'Asy-Syifa'];
-export const programs = [
-  { index: '01', name: 'Paket Pengobatan', desc: 'Pilihan kombinasi bekam sunnah, TMD, akupunktur, dan akupresur.', href: 'paket-pengobatan.html' },
-  { index: '02', name: 'Paket Perawatan', desc: 'Rangkaian terapi untuk relaksasi, kebugaran, dan perawatan diri.', href: 'paket-perawatan.html' },
-  { index: '03', name: 'Paket Spesialis', desc: 'Pilihan paket untuk kebutuhan khusus, promil, beauty care, dan lainnya.', href: 'paket-spesialis.html' },
-  { index: '04', name: 'Paket Basic', desc: 'Pilihan awal untuk bekam sunnah dan terapi dasar.', href: 'paket-basic.html' }
-];
+const programDescriptions = {
+  'paket-pengobatan': 'Pilihan kombinasi bekam sunnah, TMD, akupunktur, dan akupresur.',
+  'paket-perawatan': 'Rangkaian terapi untuk relaksasi, kebugaran, dan perawatan diri.',
+  'paket-spesialis': 'Pilihan paket untuk kebutuhan khusus, promil, beauty care, dan lainnya.',
+  'paket-basic': 'Pilihan awal untuk bekam sunnah dan terapi dasar.'
+};
+export const programs = packageGroups.map((group, index) => ({
+  index: String(index + 1).padStart(2, '0'),
+  name: group.title,
+  desc: programDescriptions[group.id] ?? 'Pilihan layanan Rumah Terapi Asy-Syifa.',
+  href: `${group.id}.html`
+}));
 
 // Clinic introduction and service highlights
 export const facilityLines = ['Rumah Terapi', 'Asy-Syifa', 'Surakarta'];
@@ -40,7 +58,7 @@ export const facilityCards = [
 export const statsLines = ['Mengenal', 'Asy-Syifa'];
 export const stats = [
   { value: '1000+', label: 'Pasien terlayani' },
-  { value: '15+', label: 'Jenis terapi' },
+  { value: '20+', label: 'Jenis terapi' },
   { value: '10+', label: 'Paket perawatan' },
   { value: '5+', label: 'Tahun pengalaman' }
 ];

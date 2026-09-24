@@ -45,6 +45,14 @@
     background: none;
   }
 
+  a.pill-btn,
+  button.pill-btn,
+  a.btn-book-visit,
+  button.btn-book-visit,
+  a.collection-card-cta {
+    text-decoration: none;
+  }
+
   :focus-visible {
     outline: 2px solid var(--brand-light);
     outline-offset: 2px;

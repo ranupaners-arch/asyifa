@@ -1,12 +1,5 @@
 import { packageGroups } from './data/prices.js';
 
-const descriptions = {
-  'paket-pengobatan': 'Pilihan kombinasi terapi untuk kebutuhan pengobatan. Konsultasikan kondisi dan pilihan layanan dengan terapis sebelum reservasi.',
-  'paket-perawatan': 'Rangkaian layanan untuk relaksasi, kebugaran, dan perawatan diri. Pilih kombinasi yang sesuai setelah berkonsultasi dengan terapis.',
-  'paket-spesialis': 'Pilihan paket dengan fokus kebutuhan khusus, termasuk promil, kecantikan, dan kebugaran. Detail layanan dapat dikonsultasikan terlebih dahulu.',
-  'paket-basic': 'Pilihan awal untuk mengenal layanan bekam dan terapi dasar Rumah Terapi Asy-Syifa.'
-};
-
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
   '&': '&amp;',
   '<': '&lt;',
@@ -30,9 +23,9 @@ export function initializeServicePage() {
   }
 
   document.title = `${group.title} — Rumah Terapi Asy-Syifa`;
-  document.querySelector('meta[name="description"]').content = descriptions[id];
+  document.querySelector('meta[name="description"]').content = group.description;
   document.getElementById('service-title').textContent = group.title;
-  document.getElementById('service-description').textContent = descriptions[id];
+  document.getElementById('service-description').textContent = group.description;
   document.getElementById('service-items').innerHTML = group.items.map(item => `
     <article class="service-item">
       <div class="service-item-main">

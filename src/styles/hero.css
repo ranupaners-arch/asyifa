@@ -85,7 +85,7 @@
   .header-nav a {
     color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 1rem;
     transition: color 200ms;
   }
 
@@ -99,15 +99,15 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.2em;
   }
 
   .header-brand img {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2.75rem;
+    height: 2.75rem;
     object-fit: contain;
     border-radius: 0.25rem;
   }
@@ -127,6 +127,7 @@
     display: none;
     color: white;
     text-decoration: none;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-bottom: 1px solid transparent;
@@ -343,7 +344,7 @@
   .collection-card-cta {
     font-size: 0.65rem;
     color: white;
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   .carousel-dots {

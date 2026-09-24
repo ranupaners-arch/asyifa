@@ -80,7 +80,10 @@ export function updateTrustCoach(slide, direction = 1) {
   portrait.style.transform = `translateX(${-direction * 0.6}rem) rotate(${-direction * 3}deg)`;
 
   trustCoachTimeout = setTimeout(() => {
-    portrait.textContent = slide.initials;
+    portrait.textContent = slide.photo ? '' : slide.initials;
+    portrait.style.backgroundImage = slide.photo ? `url("${slide.photo}")` : '';
+    portrait.style.backgroundSize = slide.photo ? 'cover' : '';
+    portrait.style.backgroundPosition = slide.photo ? 'center' : '';
     portrait.setAttribute('aria-label', `${slide.name}, ${slide.role}`);
     name.textContent = slide.name;
     role.textContent = slide.role;
@@ -145,6 +148,7 @@ export function updateCollectionSlide(index) {
     img.alt = collections[index].alt;
     brand.textContent = collections[index].brand;
     title.textContent = collections[index].title;
+    cta.href = collections[index].href;
     cta.textContent = `${collections[index].cta} →`;
 
     // Fade in
@@ -169,7 +173,7 @@ export function nextCollectionSlide() {
 }
 
 export function setupCollectionAutoplay() {
-  if (prefersReducedMotion) return;
+  if (prefersReducedMotion || collectionInterval) return;
 
   collectionInterval = setInterval(() => {
     nextCollectionSlide();

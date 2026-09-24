@@ -13,11 +13,8 @@ interface AppProps {
 export default function App({ page, markup }: AppProps) {
   const [footerMount, setFooterMount] = useState<HTMLElement | null>(null);
 
-  if (page === 'products') {
-    return <ProductCatalog />;
-  }
-
   useEffect(() => {
+    if (page === 'products') return;
     setFooterMount(document.getElementById('site-footer-mount'));
     if (page === 'home') {
       void import('./home-bootstrap.js').then(({ initializeHome }) => initializeHome());
@@ -27,6 +24,10 @@ export default function App({ page, markup }: AppProps) {
       void import('./service-page.js').then(({ initializeServicePage }) => initializeServicePage());
     }
   }, [page]);
+
+  if (page === 'products') {
+    return <ProductCatalog />;
+  }
 
   // Keep the existing semantic markup intact while the UI migrates component by component.
   return (
