@@ -1,9 +1,10 @@
 // Carousels
 import { prefersReducedMotion } from './constants.js';
-import { IMG_BASE } from '../data/assets.js';
 import { collections, trustSlides } from '../data/content.js';
 
 let trustSlideIndex = 0;
+let trustCoachTimeout;
+let captionTimeout;
 let collectionSlideIndex = 0;
 let collectionInterval;
 
@@ -29,55 +30,78 @@ export function updateTrustTitle(words) {
     const wordSpans = trustTitle.querySelectorAll('.trust-word span');
     wordSpans.forEach((span, i) => {
       setTimeout(() => {
-        span.style.transition = 'transform 700ms cubic-bezier(0.33, 1, 0.68, 1), opacity 700ms';
+        span.style.transition = 'transform 900ms cubic-bezier(0.22, 1, 0.36, 1), opacity 900ms ease';
         span.style.transform = 'translateY(0)';
         span.style.opacity = '1';
-      }, i * 50);
+      }, i * 80);
     });
   }, 50);
 }
 
-export function updateTrustCoach(slide) {
+export function updateTrustCoach(slide, direction = 1) {
   const coach = document.getElementById('trustCoach');
-  const img = coach.querySelector('.trust-coach-img');
+  const portrait = coach.querySelector('.trust-coach-img');
   const name = coach.querySelector('.trust-coach-name');
   const role = coach.querySelector('.trust-coach-role');
 
-  // Fade out
-  img.style.transition = 'opacity 300ms';
-  img.style.opacity = '0';
+  const OUT_MS = 420;
+  const IN_MS = 650;
+  const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
-  setTimeout(() => {
-    img.src = `${IMG_BASE}/${slide.img}`;
-    img.alt = slide.alt;
+  // Fade out + slide opposite to travel direction
+  clearTimeout(trustCoachTimeout);
+  clearTimeout(captionTimeout);
+  portrait.style.transition = `opacity ${OUT_MS}ms ease, transform ${OUT_MS}ms ${EASE}`;
+  portrait.style.opacity = '0';
+  portrait.style.transform = `translateX(${-direction * 0.6}rem) rotate(${-direction * 3}deg)`;
+
+  trustCoachTimeout = setTimeout(() => {
+    portrait.textContent = slide.initials;
+    portrait.setAttribute('aria-label', `${slide.name}, ${slide.role}`);
     name.textContent = slide.name;
     role.textContent = slide.role;
 
-    // Fade in
-    img.style.opacity = '1';
-  }, 300);
+    // Fade in from the travel side
+    portrait.style.transition = 'none';
+    portrait.style.transform = `translateX(${direction * 0.6}rem) rotate(${direction * 3}deg)`;
+    portrait.offsetHeight; // force reflow so the new position applies
+    portrait.style.transition = `opacity ${IN_MS}ms ease, transform ${IN_MS}ms ${EASE}`;
+    portrait.style.opacity = '1';
+    portrait.style.transform = 'translateX(0) rotate(0deg)';
+  }, OUT_MS);
+
+  // Caption follows with a slight delay
+  const caption = coach.querySelector('.trust-coach-caption');
+  caption.style.transition = `opacity 320ms ease, transform 320ms ${EASE}`;
+  caption.style.opacity = '0';
+  caption.style.transform = `translateX(${-direction * 0.4}rem)`;
+
+  captionTimeout = setTimeout(() => {
+    caption.style.transition = 'none';
+    caption.style.transform = `translateX(${direction * 0.4}rem)`;
+    caption.offsetHeight;
+    caption.style.transition = `opacity 480ms ease, transform 480ms ${EASE}`;
+    caption.style.opacity = '1';
+    caption.style.transform = 'translateX(0)';
+  }, 260);
 }
 
-export function setTrustSlide(index) {
+export function setTrustSlide(index, direction = 1) {
+  index = (index + trustSlides.length) % trustSlides.length;
   trustSlideIndex = index;
   const slide = trustSlides[index];
 
   updateTrustTitle(slide.headline);
-  updateTrustCoach(slide);
+  updateTrustCoach(slide, direction);
 
-  // Update dots
-  const dots = document.querySelectorAll('#trustDots .carousel-dot');
-  dots.forEach((dot, i) => {
-    dot.classList.toggle('active', i === index);
-  });
 }
 
 export function nextTrustSlide() {
-  setTrustSlide((trustSlideIndex + 1) % trustSlides.length);
+  setTrustSlide(trustSlideIndex + 1, 1);
 }
 
 export function prevTrustSlide() {
-  setTrustSlide((trustSlideIndex - 1 + trustSlides.length) % trustSlides.length);
+  setTrustSlide(trustSlideIndex - 1, -1);
 }
 
 export function updateCollectionSlide(index) {
@@ -93,7 +117,7 @@ export function updateCollectionSlide(index) {
   card.style.transform = 'translateY(1rem) scale(0.96)';
 
   setTimeout(() => {
-    img.src = `${IMG_BASE}/${collections[index].img}`;
+    img.src = collections[index].img;
     img.alt = collections[index].alt;
     brand.textContent = collections[index].brand;
     title.textContent = collections[index].title;

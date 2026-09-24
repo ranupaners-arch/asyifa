@@ -15,6 +15,7 @@ export function openModal() {
   panel.style.transition = 'opacity 600ms, transform 600ms';
   panel.style.opacity = '1';
   panel.style.transform = 'translateY(0) scale(1)';
+  panel.style.pointerEvents = 'auto';
 
   // Reveal modal title
   setTimeout(() => {
@@ -42,6 +43,7 @@ export function closeModal() {
 
   panel.style.opacity = '0';
   panel.style.transform = 'translateY(1.75rem) scale(0.96)';
+  panel.style.pointerEvents = 'none';
 
   setTimeout(() => {
     backdrop.style.opacity = '0';
@@ -57,31 +59,35 @@ export function closeModal() {
   }, 300);
 }
 
-// Form submit
-document.getElementById('contactForm').addEventListener('submit', (e) => {
+// Form submit; attach after React has mounted the page markup.
+export function setupModalForm() {
+  const contactForm = document.getElementById('contactForm');
+  if (!contactForm || contactForm.dataset.reactBound === 'true') return;
+  contactForm.dataset.reactBound = 'true';
+
+  contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
+  const form = e.currentTarget;
+  if (!form.reportValidity()) return;
+
   const submitBtn = e.target.querySelector('.form-submit');
-  const originalText = submitBtn.innerHTML;
+  const success = document.getElementById('modalSuccess');
+  const successText = document.getElementById('successText');
+  const name = document.getElementById('name').value.trim();
+  const service = document.getElementById('service').value;
+  const message = document.getElementById('message').value.trim();
+  const text = [
+    'Halo Rumah Terapi Asy-Syifa, saya ingin reservasi/konsultasi.',
+    `Nama: ${name}`,
+    `Layanan: ${service}`,
+    message ? `Pesan: ${message}` : ''
+  ].filter(Boolean).join('\n');
 
-  submitBtn.innerHTML = 'Sending…';
-  submitBtn.disabled = true;
-  submitBtn.style.opacity = '0.5';
-
-  setTimeout(() => {
-    const form = document.getElementById('contactForm');
-    const success = document.getElementById('modalSuccess');
-    const successText = document.getElementById('successText');
-
-    const name = document.getElementById('name').value;
-    const firstName = name.split(' ')[0] || 'there';
-    successText.textContent = `Thanks, ${firstName} — our team will be in touch to lock in your visit.`;
-
-    form.style.display = 'none';
-    success.style.display = 'block';
-
-    submitBtn.innerHTML = originalText;
-    submitBtn.disabled = false;
-    submitBtn.style.opacity = '1';
-  }, 800);
-});
+  window.open(`https://wa.me/6281997039213?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+  successText.textContent = 'Pesan sudah disiapkan. Selesaikan pengirimannya di WhatsApp.';
+  form.style.display = 'none';
+  success.style.display = 'block';
+  submitBtn.disabled = false;
+  });
+}

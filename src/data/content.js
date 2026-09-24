@@ -1,57 +1,54 @@
-// All copy/data originally inline in buildContent() and the carousel defs.
+// Landing page copy and display data for Rumah Terapi Asy-Syifa.
+import { LOGO_IMAGE } from './assets.js';
 
 // Hero
-export const titleWords = ['Own', 'The', 'Court'];
-export const taglineLines = ['Show Up,', 'Level Up'];
+export const titleWords = ['Sehat', 'Alami'];
+export const taglineLines = ['Rumah Terapi Asy-Syifa Surakarta', 'Terapi holistik untuk kualitas hidup'];
 
-// Collection slider
+// Hero service carousel
 export const collections = [
-  { img: '2.webp', brand: 'Baseline Pro', title: 'Featured Gear', cta: 'Shop the kit', alt: 'Player driving a backhand on a hard court' },
-  { img: '3.webp', brand: 'Court Series', title: 'Summer Drop', cta: 'View the line', alt: 'Player stretching for a forehand on clay' },
-  { img: '5.webp', brand: 'Academy Kit', title: 'Junior Range', cta: 'Browse juniors', alt: 'Player set in a ready stance on clay' }
+  { img: LOGO_IMAGE, brand: 'Asy-Syifa', title: 'Bekam & Akupunktur', cta: 'Lihat paket', alt: 'Logo Rumah Terapi Asy-Syifa' },
+  { img: LOGO_IMAGE, brand: 'Asy-Syifa', title: 'Akupresur & TMD', cta: 'Lihat paket', alt: 'Logo Rumah Terapi Asy-Syifa' },
+  { img: LOGO_IMAGE, brand: 'Asy-Syifa', title: 'Beauty Care', cta: 'Lihat paket', alt: 'Logo Rumah Terapi Asy-Syifa' }
 ];
 
-// Trust carousel (full slides, used by carousel logic)
+// Dummy therapist profiles; replace with approved staff details and photos.
 export const trustSlides = [
-  { headline: ['Expert', 'Result-', 'Driven', 'Coaching'], img: '5.webp', name: 'Marco Vidal', role: 'Head Coach', alt: 'Head coach set in a ready stance on clay' },
-  { headline: ['Sharper', 'Faster', 'Stronger', 'Player'], img: '4.webp', name: 'Elena Sokolova', role: 'Performance Coach', alt: 'Performance coach following through on a serve' },
-  { headline: ['Future', 'Champions', 'Start', 'Here'], img: '1.webp', name: 'James Okoro', role: 'Juniors Lead', alt: 'Juniors lead waiting to return on clay' }
+  { headline: ['Terapi', 'Holistik', 'untuk', 'Kesehatan'], initials: 'JP', name: 'Jasmine Puspa Medina', role: 'Terapis Akupuntur' },
+  { headline: ['Pendekatan', 'Terarah', 'bagi', 'Keluarga'], initials: 'RP', name: 'Rizky Pratama', role: 'Terapis Akupunktur · Dummy' },
+  { headline: ['Ruang', 'Nyaman', 'untuk', 'Perawatan'], initials: 'SR', name: 'Siti Rahma', role: 'Terapis Akupresur · Dummy' }
 ];
 
-// Programs
-export const programLines = ['Built for', 'every level'];
+// Package category teasers; full prices will live on harga.html.
+export const programLines = ['Paket Terapi', 'Asy-Syifa'];
 export const programs = [
-  { index: '01', name: 'Junior Development', desc: 'Fundamentals, footwork, and match play for ages 6–14.', href: '#junior' },
-  { index: '02', name: 'Performance Squad', desc: 'High-volume training for competitive and ranked players.', href: '#performance' },
-  { index: '03', name: 'Adult Clinics', desc: 'Small-group sessions to sharpen technique and fitness.', href: '#adult' },
-  { index: '04', name: 'Private Coaching', desc: 'One-to-one sessions tailored to your goals and schedule.', href: '#private' }
+  { index: '01', name: 'Paket Pengobatan', desc: 'Pilihan kombinasi bekam sunnah, TMD, akupunktur, dan akupresur.', href: 'paket-pengobatan.html' },
+  { index: '02', name: 'Paket Perawatan', desc: 'Rangkaian terapi untuk relaksasi, kebugaran, dan perawatan diri.', href: 'paket-perawatan.html' },
+  { index: '03', name: 'Paket Spesialis', desc: 'Pilihan paket untuk kebutuhan khusus, promil, beauty care, dan lainnya.', href: 'paket-spesialis.html' },
+  { index: '04', name: 'Paket Basic', desc: 'Pilihan awal untuk bekam sunnah dan terapi dasar.', href: 'paket-basic.html' }
 ];
 
-// Facilities
-export const facilityLines = ['Tour Our', 'World-Class', 'Courts'];
-export const facilityBody = 'Reserve a court for focused practice, squad drills, or private sessions — and train in the same conditions you\'ll compete in.';
+// Clinic introduction and service highlights
+export const facilityLines = ['Rumah Terapi', 'Asy-Syifa', 'Surakarta'];
+export const facilityBody = 'Bekam sunnah, akupunktur, akupresur, dan perawatan holistik dalam satu tempat. Silakan hubungi kami untuk menyesuaikan layanan dengan kebutuhan Anda.';
 export const facilityCards = [
-  { img: '1.webp', name: 'Redline Clay', desc: 'A fast outdoor clay court tuned for long, physical rallies.', tone: 'clay', alt: 'Player on the baseline of an outdoor clay court' },
-  { img: '4.webp', name: 'Harbor Court', desc: 'A sheltered hard court built for precision and night play.', tone: 'blue', alt: 'Player following through on a blue hard court' }
+  { initials: 'BS', name: 'Bekam Sunnah', desc: 'Lihat pilihan bekam dan durasinya di daftar harga.', tone: 'clay' },
+  { initials: 'AA', name: 'Akupunktur & Akupresur', desc: 'Pilihan layanan untuk kesehatan, kebugaran, dan perawatan.', tone: 'blue' }
 ];
 
-// Stats
-export const statsLines = ['A club that', 'keeps score'];
+// Clinic highlights. Confirm operational claims before publication.
+export const statsLines = ['Mengenal', 'Asy-Syifa'];
 export const stats = [
-  { value: '24', label: 'Certified coaches' },
-  { value: '12', label: 'Championship courts' },
-  { value: '9K+', label: 'Members training' },
-  { value: '15', label: 'Years on the baseline' }
+  { value: '1000+', label: 'Pasien terlayani' },
+  { value: '15+', label: 'Jenis terapi' },
+  { value: '10+', label: 'Paket perawatan' },
+  { value: '5+', label: 'Tahun pengalaman' }
 ];
 
-// Testimonials
-export const testimonialLines = ['Loved by', 'the locker room'];
-export const testimonials = [
-  { quote: 'I added a level to my serve in one season. The coaching is detailed and it actually sticks.', name: 'Priya Anand', role: 'Performance Squad' },
-  { quote: 'Best courts in the city and a team that treats every member like a competitor.', name: 'Lukas Brenner', role: 'Adult Clinics' },
-  { quote: 'My daughter went from shy beginner to club champion. Worth every minute.', name: 'Dana Okafor', role: 'Parent, Junior Development' }
-];
+// No patient quotes are fabricated; replace the empty state with approved testimonials.
+export const testimonialLines = ['Cerita', 'Pasien Kami'];
+export const testimonials = [];
 
-// Titles
-export const footerLines = ['Ready to', 'play?'];
-export const modalLines = ['Come see', 'the courts'];
+// Contact and reservation
+export const footerLines = ['Mulai', 'Konsultasi'];
+export const modalLines = ['Reservasi', 'Asy-Syifa'];

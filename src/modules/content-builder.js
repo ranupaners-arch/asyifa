@@ -16,7 +16,6 @@ import {
   footerLines,
   modalLines
 } from '../data/content.js';
-import { IMG_BASE } from '../data/assets.js';
 import { updateTrustTitle, setupCollectionAutoplay } from './carousels.js';
 import { setupInviewObservers } from './observers.js';
 import { getIsReady } from './loader.js';
@@ -38,11 +37,11 @@ export function buildContent() {
   const slider = document.getElementById('collectionSlider');
   slider.innerHTML = `
     <div class="collection-card" id="collectionCard">
-      <img class="collection-card-img" src="${IMG_BASE}/${collections[0].img}" alt="${collections[0].alt}">
+      <img class="collection-card-img" src="${collections[0].img}" alt="${collections[0].alt}">
       <div class="collection-card-content">
         <div class="collection-card-brand">${collections[0].brand}</div>
         <div class="collection-card-title">${collections[0].title}</div>
-        <a href="#" class="collection-card-cta">${collections[0].cta} →</a>
+      <a href="paket-pengobatan.html" class="collection-card-cta">${collections[0].cta} →</a>
       </div>
     </div>
     <div class="carousel-dots light" id="collectionDots"></div>
@@ -55,12 +54,6 @@ export function buildContent() {
 
   // Trust title
   updateTrustTitle(trustSlides[0].headline);
-
-  // Trust dots
-  const trustDots = document.getElementById('trustDots');
-  trustDots.innerHTML = trustSlides.map((_, i) =>
-    `<button class="carousel-dot ${i === 0 ? 'active' : ''}" onclick="setTrustSlide(${i})"><div class="carousel-dot-pill"></div></button>`
-  ).join('');
 
   // Programs title
   const programsTitle = document.getElementById('programsTitle');
@@ -104,7 +97,7 @@ export function buildContent() {
   const facilitiesCardsEl = document.getElementById('facilitiesCards');
   facilitiesCardsEl.innerHTML = facilityCards.map((card, i) => `
     <figure class="facility-card" data-inview data-delay="${i * 140}">
-      <img src="${IMG_BASE}/${card.img}" alt="${card.alt}" loading="lazy">
+      <div class="facility-card-visual ${card.tone}" aria-hidden="true">${card.initials}</div>
       <figcaption class="facility-caption ${card.tone}">
         <div class="facility-name">${card.name}</div>
         <div class="facility-desc">${card.desc}</div>
@@ -138,7 +131,7 @@ export function buildContent() {
 
   // Testimonials grid
   const testimonialsGrid = document.getElementById('testimonialsGrid');
-  testimonialsGrid.innerHTML = testimonials.map((t, i) => `
+  testimonialsGrid.innerHTML = testimonials.length ? testimonials.map((t, i) => `
     <li>
       <article class="testimonial-card" data-inview data-delay="${i * 120}">
         <div>
@@ -151,7 +144,18 @@ export function buildContent() {
         </figcaption>
       </article>
     </li>
-  `).join('');
+  `).join('') : `
+    <li class="testimonial-empty">
+      <article class="testimonial-card">
+        <div class="testimonial-quote" aria-hidden="true">“</div>
+        <p class="testimonial-text">Ulasan pasien akan ditampilkan setelah mendapat persetujuan untuk dipublikasikan.</p>
+        <div class="testimonial-footer">
+          <div class="testimonial-name">Cerita pasien</div>
+          <div class="testimonial-role">Menunggu testimoni terverifikasi</div>
+        </div>
+      </article>
+    </li>
+  `;
 
   // Footer CTA title
   const footerCtaTitle = document.getElementById('footerCtaTitle');

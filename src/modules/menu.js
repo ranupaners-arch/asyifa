@@ -17,6 +17,7 @@ export function openMenu() {
   panel.style.transition = 'opacity 600ms, transform 600ms';
   panel.style.opacity = '1';
   panel.style.transform = 'translateY(0)';
+  panel.style.pointerEvents = 'auto';
 
   // Animate links
   links.forEach((link, i) => {
@@ -40,6 +41,7 @@ export function closeMenu() {
 
   panel.style.opacity = '0';
   panel.style.transform = 'translateY(-1.5rem)';
+  panel.style.pointerEvents = 'none';
 
   setTimeout(() => {
     backdrop.style.opacity = '0';

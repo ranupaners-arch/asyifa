@@ -1,6 +1,27 @@
 // Inview observers + reveal triggers
 import { setupCollectionAutoplay } from './carousels.js';
 
+function observeRepeat(target, { threshold = 0.1, delay = 0, show, hide }) {
+  if (!target) return;
+
+  let timer;
+  hide(false);
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      clearTimeout(timer);
+
+      if (entry.isIntersecting) {
+        timer = setTimeout(show, delay);
+      } else {
+        hide(true);
+      }
+    });
+  }, { threshold });
+
+  observer.observe(target);
+}
+
 export function triggerHeroReveals() {
   // Hero title
   const heroWords = document.querySelectorAll('.hero-word span');
@@ -43,19 +64,22 @@ export function triggerHeroReveals() {
 }
 
 export function setupInviewObservers() {
-  const observer = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const delay = parseInt(el.dataset.delay) || 0;
+      const el = entry.target;
+      clearTimeout(el.__revealTimer);
 
-        setTimeout(() => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(el.dataset.delay) || 0;
+        el.__revealTimer = setTimeout(() => {
           el.style.transition = 'opacity 600ms, transform 600ms';
           el.style.opacity = '1';
           el.style.transform = 'translateY(0) scale(1)';
         }, delay);
-
-        observer.unobserve(el);
+      } else {
+        el.style.transition = 'opacity 600ms, transform 600ms';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(1.75rem)';
       }
     });
   }, { threshold: 0.1 });
@@ -66,107 +90,97 @@ export function setupInviewObservers() {
     observer.observe(el);
   });
 
-  // Trust percent badge
   const trustPercent = document.getElementById('trustPercent');
-  if (trustPercent) {
-    const trustObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            trustPercent.style.transition = 'opacity 600ms, transform 600ms';
-            trustPercent.style.opacity = '1';
-            trustPercent.style.transform = 'scale(1)';
-          }, 0);
-          trustObserver.unobserve(trustPercent);
-        }
-      });
-    }, { threshold: 0.1 });
+  observeRepeat(trustPercent, {
+    show: () => {
+      trustPercent.style.transition = 'opacity 600ms, transform 600ms';
+      trustPercent.style.opacity = '1';
+      trustPercent.style.transform = 'scale(1)';
+    },
+    hide: animate => {
+      trustPercent.style.transition = animate ? 'opacity 600ms, transform 600ms' : '';
+      trustPercent.style.opacity = '0';
+      trustPercent.style.transform = 'scale(0.9)';
+    }
+  });
 
-    trustPercent.style.opacity = '0';
-    trustPercent.style.transform = 'scale(0.9)';
-    trustObserver.observe(trustPercent);
-  }
-
-  // Trust badge
   const trustBadge = document.getElementById('trustBadge');
-  if (trustBadge) {
-    const badgeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            trustBadge.style.transition = 'opacity 600ms, transform 600ms';
-            trustBadge.style.opacity = '1';
-            trustBadge.style.transform = 'translateY(0)';
-          }, 120);
-          badgeObserver.unobserve(trustBadge);
-        }
-      });
-    }, { threshold: 0.1 });
+  observeRepeat(trustBadge, {
+    delay: 120,
+    show: () => {
+      trustBadge.style.transition = 'opacity 600ms, transform 600ms';
+      trustBadge.style.opacity = '1';
+      trustBadge.style.transform = 'translateY(0)';
+    },
+    hide: animate => {
+      trustBadge.style.transition = animate ? 'opacity 600ms, transform 600ms' : '';
+      trustBadge.style.opacity = '0';
+      trustBadge.style.transform = 'translateY(1.5rem)';
+    }
+  });
 
-    trustBadge.style.opacity = '0';
-    trustBadge.style.transform = 'translateY(1.5rem)';
-    badgeObserver.observe(trustBadge);
-  }
-
-  // Trust coach
   const trustCoach = document.getElementById('trustCoach');
-  if (trustCoach) {
-    const coachObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            trustCoach.style.transition = 'opacity 600ms, transform 600ms';
-            trustCoach.style.opacity = '1';
-            trustCoach.style.transform = 'translate(-50%, -50%) rotate(6deg) scale(1)';
-          }, 0);
-          coachObserver.unobserve(trustCoach);
-        }
-      });
-    }, { threshold: 0.1 });
+  observeRepeat(trustCoach, {
+    show: () => {
+      trustCoach.style.transition = 'opacity 600ms, transform 600ms';
+      trustCoach.style.opacity = '1';
+      trustCoach.style.transform = 'translate(-50%, -50%) rotate(6deg) scale(1)';
+    },
+    hide: animate => {
+      trustCoach.style.transition = animate ? 'opacity 600ms, transform 600ms' : '';
+      trustCoach.style.opacity = '0';
+      trustCoach.style.transform = 'translate(-50%, -50%) rotate(6deg) scale(0.92)';
+    }
+  });
 
-    trustCoach.style.opacity = '0';
-    trustCoach.style.transform = 'translate(-50%, -50%) rotate(6deg) scale(0.92)';
-    coachObserver.observe(trustCoach);
-  }
-
-  // Footer CTA button
   const footerCtaBtn = document.querySelector('.footer-cta .pill-btn');
-  if (footerCtaBtn) {
-    const ctaObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            footerCtaBtn.style.transition = 'opacity 600ms, transform 600ms';
-            footerCtaBtn.style.opacity = '1';
-            footerCtaBtn.style.transform = 'translateY(0)';
-          }, 150);
-          ctaObserver.unobserve(footerCtaBtn);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    footerCtaBtn.style.opacity = '0';
-    footerCtaBtn.style.transform = 'translateY(1.25rem)';
-    ctaObserver.observe(footerCtaBtn);
-  }
+  observeRepeat(footerCtaBtn, {
+    delay: 150,
+    show: () => {
+      footerCtaBtn.style.transition = 'opacity 600ms, transform 600ms';
+      footerCtaBtn.style.opacity = '1';
+      footerCtaBtn.style.transform = 'translateY(0)';
+    },
+    hide: animate => {
+      footerCtaBtn.style.transition = animate ? 'opacity 600ms, transform 600ms' : '';
+      footerCtaBtn.style.opacity = '0';
+      footerCtaBtn.style.transform = 'translateY(1.25rem)';
+    }
+  });
 }
 
 export function setupFacilitiesBodyReveal() {
   const facilitiesBody = document.getElementById('facilitiesBody');
-  const observer = new IntersectionObserver((entries) => {
+  if (!facilitiesBody) return;
+
+  const words = [...facilitiesBody.querySelectorAll('.facilities-body-word')];
+  let timers = [];
+  const resetTimers = () => {
+    timers.forEach(clearTimeout);
+    timers = [];
+  };
+  const hideWords = animate => words.forEach(word => {
+    word.style.transition = animate
+      ? 'transform 700ms cubic-bezier(0.33, 1, 0.68, 1), opacity 700ms'
+      : '';
+    word.style.transform = 'translateY(1.125rem)';
+    word.style.opacity = '0';
+  });
+
+  hideWords(false);
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
+      resetTimers();
       if (entry.isIntersecting) {
-        setTimeout(() => {
-          const words = facilitiesBody.querySelectorAll('.facilities-body-word');
-          words.forEach((word, i) => {
-            setTimeout(() => {
-              word.style.transition = 'transform 700ms cubic-bezier(0.33, 1, 0.68, 1), opacity 700ms';
-              word.style.transform = 'translateY(0)';
-              word.style.opacity = '1';
-            }, 250 + i * 28);
-          });
-        }, 0);
-        observer.unobserve(facilitiesBody);
+        words.forEach((word, i) => {
+          timers.push(setTimeout(() => {
+            word.style.transition = 'transform 700ms cubic-bezier(0.33, 1, 0.68, 1), opacity 700ms';
+            word.style.transform = 'translateY(0)';
+            word.style.opacity = '1';
+          }, 250 + i * 28));
+        });
+      } else {
+        hideWords(true);
       }
     });
   }, { threshold: 0.3 });
@@ -187,19 +201,35 @@ export function setupStackedLineReveals() {
     const elements = document.querySelectorAll(selector);
     if (elements.length === 0) return;
 
-    const observer = new IntersectionObserver((entries) => {
+    const title = elements[0].parentElement.parentElement;
+    const spans = [...title.querySelectorAll('.stacked-line span')];
+    let timers = [];
+    const resetTimers = () => {
+      timers.forEach(clearTimeout);
+      timers = [];
+    };
+    const hideSpans = animate => spans.forEach(span => {
+      span.style.transition = animate
+        ? `transform ${duration}ms cubic-bezier(0.33, 1, 0.68, 1), opacity ${duration}ms`
+        : '';
+      span.style.transform = 'translateY(115%)';
+      span.style.opacity = '0';
+    });
+
+    hideSpans(false);
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
+        resetTimers();
         if (entry.isIntersecting) {
-          const parent = entry.target.parentElement;
-          const spans = parent.querySelectorAll('span');
           spans.forEach((span, i) => {
-            setTimeout(() => {
+            timers.push(setTimeout(() => {
               span.style.transition = `transform ${duration}ms cubic-bezier(0.33, 1, 0.68, 1), opacity ${duration}ms`;
               span.style.transform = 'translateY(0)';
               span.style.opacity = '1';
-            }, i * stagger);
+            }, i * stagger));
           });
-          observer.unobserve(entry.target);
+        } else {
+          hideSpans(true);
         }
       });
     }, { threshold: 0.2 });

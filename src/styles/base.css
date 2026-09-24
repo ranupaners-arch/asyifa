@@ -1,0 +1,121 @@
+  :root {
+    --color-primary: #0f3320;
+    --color-primary-dark: #081f13;
+    --color-accent: #c5a059;
+    --color-accent-hover: #a88645;
+    --color-background: #f9f6f0;
+    --color-surface: #ffffff;
+    --color-text-main: #1a1a1a;
+    --color-text-muted: #6b6b6b;
+
+    --background: var(--color-background);
+    --foreground: var(--color-text-main);
+    --brand: var(--color-accent);
+    --brand-deep: var(--color-primary);
+    --brand-light: var(--color-accent-hover);
+    --accent-teal: var(--color-primary);
+    --surface: var(--color-surface);
+    --surface-card: var(--color-surface);
+    --ink: var(--color-text-main);
+    --ink-soft: var(--color-text-muted);
+    --ghost: #d8d3c9;
+    --hairline: #e8e2d8;
+    --on-brand: #ffffff;
+    --radius-card: 1.5rem;
+    --radius-card-lg: 2rem;
+    --radius-pill: 62.5rem;
+    --radius-xl: 0.75rem;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  button {
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    background: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand-light);
+    outline-offset: 2px;
+  }
+
+  html {
+    font-size: 16px;
+  }
+
+  @media (max-width: 1920px) {
+    html { font-size: 0.833333vw; }
+  }
+  @media (max-width: 1440px) {
+    html { font-size: 1.111111vw; }
+  }
+  @media (max-width: 1024px) {
+    html { font-size: 1.5625vw; }
+  }
+  @media (max-width: 640px) {
+    html { font-size: 4.444444vw; }
+  }
+
+  body {
+    font-family: 'Onest', system-ui, sans-serif;
+    min-height: 100vh;
+    background: var(--background);
+    color: var(--foreground);
+    overflow-x: hidden;
+  }
+
+  body.scroll-locked {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  main {
+    width: 100%;
+    overflow-x: clip;
+    padding: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    main { padding: 0.75rem; }
+  }
+
+  /* Utility classes */
+  .rounded-xl { border-radius: var(--radius-xl); }
+  .rounded-card { border-radius: var(--radius-card); }
+  .rounded-card-lg { border-radius: var(--radius-card-lg); }
+  .rounded-pill { border-radius: var(--radius-pill); }
+  .font-medium { font-weight: 500; }
+  .text-xs { font-size: 0.75rem; }
+  .text-sm { font-size: 0.875rem; }
+  .text-base { font-size: 1rem; }
+  .text-lg { font-size: 1.125rem; }
+  .text-xl { font-size: 1.25rem; }
+  .text-2xl { font-size: 1.5rem; }
+  .text-3xl { font-size: 1.875rem; }
+  .text-4xl { font-size: 2.25rem; }
+  .text-5xl { font-size: 3rem; }
+  .text-6xl { font-size: 3.75rem; }
+  .text-7xl { font-size: 4.5rem; }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }

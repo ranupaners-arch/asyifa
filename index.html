@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Baseline — Tennis Club & Academy</title>
+<meta name="theme-color" content="#0f3320">
+  <link rel="icon" type="image/jpeg" href="/src/assets/logo.jpeg">
+<meta name="description" content="Rumah Terapi Asy-Syifa Surakarta menyediakan layanan bekam sunnah, akupunktur, akupresur, dan beauty care.">
+<title>Rumah Terapi Asy-Syifa — Surakarta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/src/styles/main.css">
 </head>
 <body>
+  <div id="root" data-page="home">
   <main>
     <!-- Hero -->
     <section id="hero">
       <div class="hero-bg">
         <div class="hero-bg-inner" id="heroBg">
-          <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/hero/hero-court.webp" alt="Player lunging for a shot on a hard court" fetchpriority="high">
+          <img class="hero-brand-watermark" src="/src/assets/banner.png" alt="" fetchpriority="high">
         </div>
         <div class="hero-overlay"></div>
       </div>
@@ -23,26 +27,18 @@
       <header>
         <div class="header-inner">
           <nav class="header-nav">
-            <a href="#programs">Programs & Coaches</a>
-            <a href="#facilities">Club & Events</a>
+            <a href="#programs">Paket Terapi</a>
+            <a href="harga.html">Daftar Harga</a>
+            <a href="#jadwal-bekam">Jadwal Bekam</a>
           </nav>
-          
           <div class="header-brand">
-            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/>
-              <path d="M4.8 5.6A9 9 0 0 0 4.8 18.4"/>
-              <path d="M19.2 5.6a9 9 0 0 1 0 12.8"/>
-            </svg>
-            <span>Baseline</span>
+            <img src="/src/assets/logo.jpeg" alt="" width="36" height="36">
+            <span>Asy-Syifa</span>
           </div>
-          
           <div class="header-actions">
-            <button class="btn-book-visit" onclick="openModal()">Book a Visit</button>
+            <button class="btn-book-visit" onclick="openModal()">Reservasi via WhatsApp</button>
             <button class="burger" onclick="openMenu()" aria-label="Open menu">
-              <div class="burger-lines">
-                <div class="burger-line"></div>
-                <div class="burger-line"></div>
-              </div>
+              <div class="burger-lines"><div class="burger-line"></div><div class="burger-line"></div></div>
             </button>
           </div>
         </div>
@@ -58,16 +54,16 @@
           
           <article class="membership-card" id="membershipCard">
             <div class="membership-left">
-              <div class="membership-value">9K+</div>
+              <div class="membership-value">15+</div>
               <div class="membership-avatars">
-                <div class="membership-avatar" style="background:#5790e6"></div>
-                <div class="membership-avatar" style="background:#c2e029"></div>
-                <div class="membership-avatar" style="background:#0b6e97"></div>
-                <div class="membership-avatar" style="background:#ffffff"></div>
+                <div class="membership-avatar" style="background:var(--color-accent)"></div>
+                <div class="membership-avatar" style="background:var(--color-primary)"></div>
+                <div class="membership-avatar" style="background:var(--color-accent-hover)"></div>
+                <div class="membership-avatar" style="background:var(--color-surface)"></div>
               </div>
-              <div class="membership-caption">Members on court</div>
+              <div class="membership-caption">Jenis terapi</div>
             </div>
-            <img class="membership-card-img" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/1.webp" alt="Player waiting to return on a clay court" loading="lazy">
+            <img class="membership-card-img" src="/src/assets/logo.jpeg" alt="Logo Rumah Terapi Asy-Syifa" loading="lazy">
           </article>
         </div>
       </div>
@@ -77,15 +73,15 @@
     <section id="trust">
       <div class="trust-top">
         <div class="trust-percent" id="trustPercent">
-          <div class="trust-percent-value">100%</div>
-          <div class="trust-percent-caption">Coaching built around your game</div>
+          <div class="trust-percent-value">4</div>
+          <div class="trust-percent-caption">Bidang layanan</div>
         </div>
         
         <article class="trust-badge" id="trustBadge">
           <div class="trust-badge-chip">#01</div>
           <div class="trust-badge-content">
-            <h3>Trusted by serious players</h3>
-            <p>From first-timers to nationally ranked juniors, players train here because the progress shows up on the scoreboard.</p>
+            <h3>Terapi holistik untuk kesehatan</h3>
+            <p>Bekam sunnah, akupunktur, akupresur, dan beauty care tersedia dalam pilihan layanan yang dapat dikonsultasikan.</p>
           </div>
         </article>
       </div>
@@ -93,23 +89,21 @@
       <h2 id="trustTitle" class="trust-title"></h2>
       
       <figure class="trust-coach" id="trustCoach">
-        <img class="trust-coach-img" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/5.webp" alt="Head coach set in a ready stance on clay">
+        <div class="trust-coach-img" role="img" aria-label="Profil Jasmine Puspa Medina, terapis akupuntur">JP</div>
         <figcaption class="trust-coach-caption">
-          <div class="trust-coach-name">Marco Vidal</div>
-          <div class="trust-coach-role">Head Coach</div>
+          <div class="trust-coach-name">Jasmine Puspa Medina</div>
+          <div class="trust-coach-role">Terapis Akupuntur</div>
         </figcaption>
       </figure>
       
       <div class="trust-controls">
-        <button class="arrow-btn outline" onclick="prevTrustSlide()" aria-label="Previous">
+        <button type="button" class="arrow-btn outline" onclick="prevTrustSlide(); return false" aria-label="Sebelumnya">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1)">
             <path d="M5 12h14M13 6l6 6-6 6"/>
           </svg>
         </button>
         
-        <div class="carousel-dots dark" id="trustDots"></div>
-        
-        <button class="arrow-btn solid" onclick="nextTrustSlide()" aria-label="Next">
+        <button type="button" class="arrow-btn solid" onclick="nextTrustSlide(); return false" aria-label="Berikutnya">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6"/>
           </svg>
@@ -117,11 +111,11 @@
       </div>
     </section>
 
-    <!-- Programs -->
+    <!-- Paket terapi -->
     <section id="programs">
       <div class="eyebrow dark">
         <div class="eyebrow-dot"></div>
-        Training programs
+        Layanan Asy-Syifa
       </div>
       
       <h2 id="programsTitle" class="stacked-title"></h2>
@@ -129,15 +123,18 @@
       <ul class="programs-list" id="programsList"></ul>
     </section>
 
-    <!-- Facilities -->
-    <section id="facilities">
+    <!-- Tentang klinik -->
+    <section id="tentang">
       <div class="facilities-grid">
         <div class="facilities-intro">
-          <img class="facilities-icon" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/baseline-88535e4000/3.webp" alt="Player stretching for a forehand on clay" loading="lazy">
+          <img class="facilities-icon" src="/src/assets/logo.jpeg" alt="Logo Rumah Terapi Asy-Syifa" loading="lazy">
           
           <h2 id="facilitiesTitle" class="facilities-title"></h2>
           
           <p class="facilities-body" id="facilitiesBody"></p>
+          <p class="about-details">Jl. Mliwis No.20, Kerten, Laweyan, Surakarta 57143<br>Buka setiap hari, 09.00–21.00 WIB</p>
+          <p class="about-motto" lang="ar" dir="rtl">لِكُلِّ دَاءٍ دَوَاءٌ</p>
+          <p class="about-translation">Setiap penyakit ada obatnya.</p>
         </div>
         
         <div class="facilities-cards" id="facilitiesCards"></div>
@@ -156,16 +153,51 @@
       <dl class="stats-grid" id="statsGrid"></dl>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Testimoni -->
     <section id="testimonials">
       <div class="eyebrow dark">
         <div class="eyebrow-dot"></div>
-        What players say
+        Apa kata pasien
       </div>
       
       <h2 id="testimonialsTitle" class="stacked-title"></h2>
       
       <ul class="testimonials-grid" id="testimonialsGrid"></ul>
+    </section>
+
+    <section id="jadwal-bekam" class="schedule-section">
+      <div class="eyebrow dark">
+        <div class="eyebrow-dot"></div>
+        Jadwal bekam sunnah
+      </div>
+      <div class="schedule-content">
+        <div>
+          <h2 class="stacked-title">Tiga jadwal terdekat</h2>
+          <p class="schedule-copy">Tanggal Hijriah dan Masehi akan ditampilkan setelah jadwal klinik dikonfirmasi.</p>
+        </div>
+        <a class="pill-btn solid" href="https://wa.me/6281997039213?text=Halo%20Asy-Syifa%2C%20saya%20ingin%20menanyakan%20jadwal%20bekam%20sunnah.">
+          Tanya jadwal via WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <section id="madu" class="honey-section">
+      <div class="honey-copy">
+        <div class="eyebrow light">
+          <div class="eyebrow-dot"></div>
+          Produk pilihan
+        </div>
+        <h2 class="footer-cta-title">Madu Barokah</h2>
+        <p>100% madu asli hutan lebah liar. Murni, berkhasiat, dan berkualitas untuk menemani kebutuhan keluarga.</p>
+        <div class="honey-benefits">
+          <span>Daya tahan tubuh</span>
+          <span>Stamina &amp; energi</span>
+          <span>Untuk anak dan dewasa</span>
+        </div>
+      </div>
+      <a class="pill-btn light" href="https://wa.me/6281997039213?text=Halo%20Asy-Syifa%2C%20saya%20ingin%20memesan%20Madu%20Barokah.">
+        Pesan madu via WhatsApp
+      </a>
     </section>
 
     <!-- Footer -->
@@ -174,14 +206,14 @@
         <div>
           <div class="eyebrow light">
             <div class="eyebrow-dot"></div>
-            Get started
+            Konsultasi terapi
           </div>
           
           <p id="footerCtaTitle" class="footer-cta-title"></p>
         </div>
         
         <button class="pill-btn light" onclick="openModal()">
-          Book a Visit
+          Reservasi via WhatsApp
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6"/>
           </svg>
@@ -191,67 +223,59 @@
       <div class="footer-columns">
         <div class="footer-brand">
           <div class="footer-brand-mark">
-            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/>
-              <path d="M4.8 5.6A9 9 0 0 0 4.8 18.4"/>
-              <path d="M19.2 5.6a9 9 0 0 1 0 12.8"/>
-            </svg>
-            <span>Baseline</span>
+            <img src="/src/assets/logo.jpeg" alt="" width="40" height="40">
+            <span>Rumah Terapi Asy-Syifa</span>
           </div>
           
-          <p class="footer-brand-blurb">A members' tennis club and academy where focused coaching meets championship courts.</p>
+          <p class="footer-brand-blurb">Pusat terapi holistik yang mengombinasikan bekam sunnah, akupunktur, akupresur, dan terapi alami lainnya.</p>
           
           <address class="footer-brand-address">
-            <a href="mailto:play@baseline.club">play@baseline.club</a>
-            <a href="tel:+12125550148">+1 (212) 555-0148</a>
-            <div class="address-line">120 Court Lane, New York</div>
+            <a href="tel:+6281997039213">0819 9703 9213</a>
+            <div class="address-line">Jl. Mliwis No.20, Kerten, Laweyan, Surakarta 57143</div>
           </address>
         </div>
         
         <nav class="footer-nav">
-          <h4>Programs</h4>
+          <h4>Paket terapi</h4>
           <ul>
-            <li><a href="#junior">Junior Development</a></li>
-            <li><a href="#performance">Performance Squad</a></li>
-            <li><a href="#adult">Adult Clinics</a></li>
-            <li><a href="#private">Private Coaching</a></li>
+            <li><a href="harga.html#paket-pengobatan">Pengobatan</a></li>
+            <li><a href="harga.html#paket-perawatan">Perawatan</a></li>
+            <li><a href="harga.html#paket-spesialis">Spesialis</a></li>
+            <li><a href="harga.html#paket-basic">Basic</a></li>
           </ul>
         </nav>
         
         <nav class="footer-nav">
-          <h4>Club</h4>
+          <h4>Informasi</h4>
           <ul>
-            <li><a href="#membership">Membership</a></li>
-            <li><a href="#facilities">Facilities</a></li>
-            <li><a href="#club">Events</a></li>
-            <li><a href="#shop">Pro Shop</a></li>
+            <li><a href="#tentang">Tentang kami</a></li>
+            <li><a href="#jadwal-bekam">Jadwal bekam</a></li>
+            <li><a href="#madu">Madu Barokah</a></li>
+            <li><a href="#testimonials">Testimoni</a></li>
           </ul>
         </nav>
         
         <nav class="footer-nav">
-          <h4>Company</h4>
+          <h4>Kontak &amp; lokasi</h4>
           <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#programs">Coaches</a></li>
-            <li><a href="#careers">Careers</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="https://wa.me/6281997039213">WhatsApp</a></li>
+            <li><a href="https://maps.google.com/?q=Jl.+Mliwis+No.20,+Kerten,+Laweyan,+Surakarta+57143">Buka peta</a></li>
+            <li><a href="tel:+6281997039213">Telepon klinik</a></li>
+            <li><a href="#contact">Jam 09.00–21.00</a></li>
           </ul>
         </nav>
       </div>
       
       <div class="footer-bottom">
-        <div>© 2026 Baseline Tennis Club. All rights reserved.</div>
+        <div>© 2026 Rumah Terapi Asy-Syifa Surakarta.</div>
         
         <nav class="footer-social">
-          <a href="#instagram">Instagram</a>
-          <a href="#x">X</a>
-          <a href="#youtube">YouTube</a>
-          <a href="#linkedin">LinkedIn</a>
+          <a href="https://wa.me/6281997039213">WhatsApp</a>
         </nav>
         
         <nav class="footer-legal">
-          <a href="#privacy">Privacy</a>
-          <a href="#terms">Terms</a>
+          <span>Setiap hari</span>
+          <span>09.00–21.00 WIB</span>
         </nav>
       </div>
     </footer>
@@ -265,13 +289,13 @@
         <div>
           <div class="eyebrow dark">
             <div class="eyebrow-dot"></div>
-            Book a visit
+            Reservasi via WhatsApp
           </div>
           
           <h2 id="modalTitle" class="modal-title"></h2>
         </div>
         
-        <button class="modal-close" onclick="closeModal()" aria-label="Close">
+        <button class="modal-close" onclick="closeModal()" aria-label="Tutup">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 6l12 12M18 6L6 18"/>
           </svg>
@@ -280,22 +304,30 @@
       
       <form class="modal-form" id="contactForm" novalidate>
         <div class="form-field">
-          <label for="name">Full name</label>
-          <input type="text" id="name" placeholder="Alex Rivera" required>
+          <label for="name">Nama</label>
+          <input type="text" id="name" placeholder="Nama Anda" required>
         </div>
         
         <div class="form-field">
-          <label for="email">Email</label>
-          <input type="email" id="email" placeholder="you@email.com" required>
+          <label for="service">Layanan yang diminati</label>
+          <select id="service" required>
+            <option value="">Pilih layanan</option>
+            <option>Bekam</option>
+            <option>Akupunktur</option>
+            <option>Akupresur</option>
+            <option>Beauty Care</option>
+            <option>Konsultasi paket terapi</option>
+            <option>Madu Barokah</option>
+          </select>
         </div>
         
         <div class="form-field">
-          <label for="message">What would you like to play?</label>
-          <textarea id="message" rows="3" placeholder="I'd love to try a private lesson on the clay courts…"></textarea>
+          <label for="message">Pesan tambahan</label>
+          <textarea id="message" rows="3" placeholder="Ceritakan layanan atau jadwal yang ingin ditanyakan."></textarea>
         </div>
         
         <button type="submit" class="pill-btn solid form-submit">
-          Request a visit
+          Lanjutkan ke WhatsApp
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6"/>
           </svg>
@@ -308,9 +340,9 @@
             <path d="M5 13l4 4L19 7"/>
           </svg>
         </div>
-        <div class="success-title">Request received</div>
-        <div class="success-text" id="successText">Thanks there — our team will be in touch to lock in your visit.</div>
-        <button class="pill-btn solid" onclick="closeModal()">Done</button>
+        <div class="success-title">Pesan siap dikirim</div>
+        <div class="success-text" id="successText">Selesaikan pengiriman pesan di WhatsApp.</div>
+        <button class="pill-btn solid" onclick="closeModal()">Tutup</button>
       </div>
     </div>
   </div>
@@ -321,12 +353,8 @@
     <div class="menu-panel" id="menuPanel">
       <div class="menu-header">
         <div class="menu-brand">
-          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M4.8 5.6A9 9 0 0 0 4.8 18.4"/>
-            <path d="M19.2 5.6a9 9 0 0 1 0 12.8"/>
-          </svg>
-          <span>Baseline</span>
+          <img src="/src/assets/logo.jpeg" alt="" width="36" height="36">
+          <span>Asy-Syifa</span>
         </div>
         
         <button class="menu-close" onclick="closeMenu()" aria-label="Close menu">
@@ -337,25 +365,23 @@
       </div>
       
       <nav class="menu-nav" id="menuNav">
-        <a href="#programs" onclick="closeMenu()">Programs</a>
-        <a href="#facilities" onclick="closeMenu()">Facilities</a>
-        <a href="#testimonials" onclick="closeMenu()">Reviews</a>
-        <a href="#contact" onclick="closeMenu()">Contact</a>
+        <a href="#programs" onclick="closeMenu()">Paket Terapi</a>
+        <a href="harga.html" onclick="closeMenu()">Daftar Harga</a>
+        <a href="#jadwal-bekam" onclick="closeMenu()">Jadwal Bekam</a>
+        <a href="#tentang" onclick="closeMenu()">Tentang Kami</a>
+        <a href="#contact" onclick="closeMenu()">Kontak &amp; Lokasi</a>
       </nav>
       
       <div class="menu-footer">
         <button class="pill-btn light" onclick="closeMenu(); setTimeout(openModal, 300)">
-          Book a Visit
+          Reservasi
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6"/>
           </svg>
         </button>
         
         <nav class="menu-social">
-          <a href="#instagram">Instagram</a>
-          <a href="#x">X</a>
-          <a href="#youtube">YouTube</a>
-          <a href="#linkedin">LinkedIn</a>
+          <a href="https://wa.me/6281997039213">WhatsApp 0819 9703 9213</a>
         </nav>
       </div>
     </div>
@@ -364,12 +390,8 @@
   <!-- Loader -->
   <div id="loader">
     <div class="loader-wordmark" id="loaderWordmark">
-      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="9"/>
-        <path d="M4.8 5.6A9 9 0 0 0 4.8 18.4"/>
-        <path d="M19.2 5.6a9 9 0 0 1 0 12.8"/>
-      </svg>
-      <span>Baseline</span>
+      <img src="/src/assets/logo.jpeg" alt="" width="36" height="36">
+      <span>Asy-Syifa</span>
     </div>
     
     <div class="loader-progress">
@@ -377,6 +399,7 @@
     </div>
   </div>
 
-  <script type="module" src="/src/main.js"></script>
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
