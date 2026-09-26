@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import SiteFooter from './SiteFooter';
 import randuImage from '../assets/madu-randu.jpeg';
-import akasiaImage from '../assets/honey-akasia.jpg';
 import maduManggaImage from '../assets/madu-mangga.jpeg';
 import maduKelengkengImage from '../assets/madu-kelengkeng.jpeg';
 import maduRambutanImage from '../assets/madu-rambutan.jpeg';
-import multifloraImage from '../assets/honey-multiflora.jpg';
 import maduHutanSuperImage from '../assets/madu-hutan-super.jpeg';
 
 const sizes = ['250 ml', '500 ml', '1 kg'] as const;

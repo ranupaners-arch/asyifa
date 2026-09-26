@@ -10,6 +10,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         home: resolve(import.meta.dirname, 'index.html'),
+        admin: resolve(import.meta.dirname, 'admin.html'),
         pricing: resolve(import.meta.dirname, 'harga.html'),
         products: resolve(import.meta.dirname, 'produk.html'),
         packageTreatment: resolve(import.meta.dirname, 'paket-pengobatan.html'),

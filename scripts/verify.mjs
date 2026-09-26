@@ -107,6 +107,12 @@ async function measureInteractions(page) {
   }));
   await page.evaluate(() => {
     document.getElementById('name').value = 'Alex Rivera';
+    const phone = document.getElementById('phone');
+    const bookingDate = document.getElementById('bookingDate');
+    const startTime = document.getElementById('startTime');
+    if (phone) phone.value = '081234567890';
+    if (bookingDate) bookingDate.value = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+    if (startTime) startTime.value = '10:00';
     document.getElementById('contactForm').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
   });
   await sleep(1000);

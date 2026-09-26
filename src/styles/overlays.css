@@ -139,6 +139,12 @@
     margin-top: 0.5rem;
   }
 
+  .form-error {
+    color: #a33a2b;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+
   .modal-success {
     margin-top: 2rem;
     border-radius: var(--radius-card);

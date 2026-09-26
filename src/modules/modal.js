@@ -1,6 +1,8 @@
 // Modal
 import { stopLenis, startLenis } from './smooth-scroll.js';
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 export function openModal() {
   const backdrop = document.getElementById('modalBackdrop');
   const modal = document.getElementById('modal');
@@ -55,6 +57,7 @@ export function closeModal() {
       form.reset();
       form.style.display = 'flex';
       success.style.display = 'none';
+      document.getElementById('modalError').hidden = true;
     }, 350);
   }, 300);
 }
@@ -64,8 +67,14 @@ export function setupModalForm() {
   const contactForm = document.getElementById('contactForm');
   if (!contactForm || contactForm.dataset.reactBound === 'true') return;
   contactForm.dataset.reactBound = 'true';
+  const bookingDateInput = document.getElementById('bookingDate');
+  if (bookingDateInput) bookingDateInput.min = new Date().toISOString().slice(0, 10);
 
-  contactForm.addEventListener('submit', (e) => {
+  const openWhatsApp = (text) => {
+    window.open(`https://wa.me/6281997039213?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+  };
+
+  contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const form = e.currentTarget;
@@ -75,17 +84,45 @@ export function setupModalForm() {
   const success = document.getElementById('modalSuccess');
   const successText = document.getElementById('successText');
   const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
   const service = document.getElementById('service').value;
+  const bookingDate = document.getElementById('bookingDate').value;
+  const startTime = document.getElementById('startTime').value;
   const message = document.getElementById('message').value.trim();
+  const error = document.getElementById('modalError');
   const text = [
-    'Halo Rumah Terapi Asy-Syifa, saya ingin reservasi/konsultasi.',
+    'Halo Rumah Terapi Asy-Syifa, saya ingin reservasi.',
     `Nama: ${name}`,
+    `Nomor WhatsApp: ${phone}`,
     `Layanan: ${service}`,
+    `Tanggal: ${bookingDate}`,
+    `Jam: ${startTime}`,
     message ? `Pesan: ${message}` : ''
   ].filter(Boolean).join('\n');
 
-  window.open(`https://wa.me/6281997039213?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
-  successText.textContent = 'Pesan sudah disiapkan. Selesaikan pengirimannya di WhatsApp.';
+  submitBtn.disabled = true;
+  error.hidden = true;
+  try {
+    const response = await fetch(`${apiBaseUrl}/api/bookings`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ name, phone, serviceName: service, bookingDate, startTime, notes: message })
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'Reservasi belum dapat disimpan.');
+    openWhatsApp(`${text}\nNo. reservasi: ${result.reference}`);
+    successText.textContent = `Reservasi ${result.reference} tersimpan. Selesaikan pengiriman konfirmasi di WhatsApp.`;
+  } catch (requestError) {
+    if (requestError instanceof TypeError) {
+      openWhatsApp(text);
+      successText.textContent = 'Server belum tersambung. Pesan reservasi sudah disiapkan di WhatsApp.';
+    } else {
+      error.textContent = requestError.message;
+      error.hidden = false;
+      submitBtn.disabled = false;
+      return;
+    }
+  }
   form.style.display = 'none';
   success.style.display = 'block';
   submitBtn.disabled = false;

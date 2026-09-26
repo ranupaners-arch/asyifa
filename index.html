@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0f3320">
-  <link rel="icon" type="image/jpeg" href="/src/assets/logo.jpeg">
+  <link rel="icon" href="/favicon.ico">
 <meta name="description" content="Rumah Terapi Asy-Syifa Surakarta menyediakan layanan bekam sunnah, akupunktur, akupresur, dan beauty care.">
-<title>Rumah Terapi Asy-Syifa Surakarta</title>
+<title>Rumah Terapi Asy-Syifa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&display=swap" rel="stylesheet">
@@ -206,7 +206,8 @@
         <a href="https://wa.me/6281997039213?text=Halo%20Asy-Syifa%2C%20saya%20ingin%20menanyakan%20jadwal%20bekam." aria-label="Tanya jadwal bekam melalui WhatsApp">↗</a>
       </blockquote>
     </section>
-
+    <section id="galeri" class="galeri-section">
+    </section>
     <section id="madu" class="honey-section">
       <div class="honey-copy">
         <div class="eyebrow light">
@@ -336,6 +337,11 @@
           <label for="name">Nama</label>
           <input type="text" id="name" placeholder="Nama Anda" required>
         </div>
+
+        <div class="form-field">
+          <label for="phone">Nomor WhatsApp</label>
+          <input type="tel" id="phone" placeholder="08xxxxxxxxxx" autocomplete="tel" required>
+        </div>
         
         <div class="form-field">
           <label for="service">Layanan yang diminati</label>
@@ -349,6 +355,16 @@
             <option>Madu Barokah</option>
           </select>
         </div>
+
+        <div class="form-field">
+          <label for="bookingDate">Tanggal yang diinginkan</label>
+          <input type="date" id="bookingDate" required>
+        </div>
+
+        <div class="form-field">
+          <label for="startTime">Jam yang diinginkan</label>
+          <input type="time" id="startTime" required>
+        </div>
         
         <div class="form-field">
           <label for="message">Pesan tambahan</label>
@@ -356,11 +372,12 @@
         </div>
         
         <button type="submit" class="pill-btn solid form-submit">
-          Lanjutkan ke WhatsApp
+          Kirim reservasi
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6"/>
           </svg>
         </button>
+        <div class="form-error" id="modalError" role="alert" hidden></div>
       </form>
       
       <div class="modal-success" id="modalSuccess" style="display:none">
