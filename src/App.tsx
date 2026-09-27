@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import SiteFooter from './components/SiteFooter';
 import ProductCatalog from './components/ProductCatalog';
-import AdminDashboard from './components/AdminDashboard';
+import Dashboard from './components/Dashboard';
 
 type PageKind = 'home' | 'pricing' | 'service' | 'products' | 'admin';
 
@@ -14,7 +14,7 @@ interface AppProps {
 export default function App({ page, markup }: AppProps) {
   const [footerMount, setFooterMount] = useState<HTMLElement | null>(null);
 
-  if (page === 'admin') return <AdminDashboard />;
+  if (page === 'admin') return <Dashboard />;
 
   useEffect(() => {
     if (page !== 'home') {
