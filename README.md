@@ -1,52 +1,74 @@
-# Asyifa
+# Asy-Syifa
 
-Website Rumah Terapi Asy-Syifa Surakarta, dibuat dengan Vite, React, dan TypeScript.
+Website profil dan portal operasional untuk **Rumah Terapi Asy-Syifa Surakarta** — klinik bekam sunnah, akupunktur, akupresur, dan beauty care. Ditujukan untuk calon pasien yang mencari info layanan/harga, serta untuk Owner/Admin/Staff klinik yang mengelola reservasi, pengguna, cabang, dan cashflow.
 
-## Jalankan lokal
+## Fitur utama
 
-```bash
-npm install
-npm run dev
-```
+- Landing page company profile: hero, value proposition, profil terapis, daftar paket, fasilitas, statistik klinik, dan modal reservasi.
+- Daftar harga per kategori layanan dengan tampilan disclosure (`harga.html`).
+- Halaman detail 4 paket terapi: Pengobatan, Perawatan, Spesialis, dan Basic.
+- Katalog produk madu dengan pilihan ukuran dan tautan tanya-admin via WhatsApp (`produk.html`).
+- API reservasi (booking) dengan pengecekan slot yang sudah terpakai sebelum menyimpan data.
+- Portal admin (`admin.html`) dengan setup akun Owner pertama, login, dan sesi berbasis token:
+  - Dashboard metrik (jumlah reservasi, staff aktif, cabang aktif, cashflow harian) untuk Owner.
+  - Kelola status reservasi (pending, confirmed, in_progress, completed, cancelled).
+  - Kelola pengguna — Owner dapat membuat Admin/Staff, Admin hanya dapat membuat Staff di cabangnya.
+  - Kelola cabang serta pencatatan cashflow masuk/keluar per cabang (khusus Owner/Admin).
+  - Modul tambahan (Jadwal, Layanan, Terapis, Produk, Pesanan, Laporan, Pengaturan) sudah ada di navigasi Admin namun masih berupa kerangka UI, belum terhubung ke data.
 
-Entry React/TypeScript berada di `src/main.tsx`; `src/App.tsx` me-mount enam jenis halaman. Markup lama dipertahankan di HTML sebagai jembatan agar layout, animasi, dan interaksi tetap identik selama migrasi bertahap.
+## Tech stack
 
-Halaman utama tersedia di `/`, daftar harga di `/harga.html`, katalog madu contoh di `/produk.html`, serta halaman detail Paket Pengobatan, Paket Perawatan, Paket Spesialis, dan Paket Basic di masing-masing `/paket-*.html`.
+- **Frontend**: React 19 + TypeScript, Vite 7 (multi-page build), Lenis (smooth scroll).
+- **Styling**: CSS modular per kategori (`src/styles/*.css`).
+- **Backend**: Node.js (`http` native) + `mysql2`, autentikasi password dengan `scrypt` dan sesi token in-memory.
+- **Database**: MySQL (lihat `database/schema.sql`).
+- **Tooling**: TypeScript, `@vitejs/plugin-react`; `scripts/verify.mjs` memakai `puppeteer-core`, `pixelmatch`, `pngjs` untuk pemeriksaan visual.
 
-Katalog madu menggunakan gambar ilustrasi dan pilihan produk dummy. Harga, ukuran, stok, nama, serta foto kemasan aktual harus dikonfirmasi sebelum dipublikasikan; belum ada klaim khasiat atau harga yang ditampilkan.
+## Cara menjalankan lokal
 
-Build production:
+1. Install dependency:
+   ```bash
+   npm install
+   ```
+2. Siapkan database MySQL mengikuti `database/README.md`: jalankan MySQL (misalnya via Dbngin) di `127.0.0.1:3305`, lalu eksekusi seluruh isi `database/schema.sql`.
+3. Repo ini belum menyertakan `.env.example`. Buat file `.env.local` di root dan isi variabel yang dibaca oleh `api/server.mjs` sesuai kebutuhan lokal: `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `API_PORT`, `CORS_ORIGIN`. Untuk frontend, set `VITE_API_BASE_URL` bila API tidak berjalan di `http://localhost:3001`.
+4. Jalankan API:
+   ```bash
+   npm run api
+   ```
+5. Jalankan frontend (mode dev):
+   ```bash
+   npm run dev
+   ```
+6. Build production lalu pratinjau:
+   ```bash
+   npm run build
+   npm run preview
+   ```
+7. Pemeriksaan lain:
+   ```bash
+   npm run typecheck   # cek TypeScript saja
+   npm run verify       # pemeriksa visual lama; sudah tidak relevan sebagai kriteria penerimaan sejak konten berubah ke Asy-Syifa
+   ```
 
-```bash
-npm run build
-npm run preview
-```
+## Struktur folder
 
-`npm run typecheck` menjalankan pemeriksaan TypeScript.
+- `api/server.mjs` — REST API (auth, reservasi, pengguna, cabang, cashflow, metrik dashboard).
+- `database/` — `schema.sql` dan catatan setup database lokal.
+- `src/main.tsx`, `src/App.tsx` — entry point React, mount halaman berdasarkan atribut `data-page`.
+- `src/components/` — `Dashboard` (portal admin), `ProductCatalog` (katalog madu), `SiteFooter`.
+- `src/data/` — konten teks, data harga, dan referensi asset.
+- `src/modules/` — modul perilaku halaman lama (carousel, menu, modal, parallax, dll.) yang dipertahankan selama migrasi.
+- `src/styles/` — stylesheet CSS per kategori.
+- `index.html`, `harga.html`, `produk.html`, `paket-*.html`, `admin.html` — entry multi-page Vite (lihat `vite.config.js`).
+- `scripts/verify.mjs` — pemeriksa visual regression.
+- `_backup/index.html` — snapshot baseline sebelum migrasi ke konten Asy-Syifa.
 
-## Pemeriksaan build
+## Deploy/rilis
 
-```bash
-npm run build
-npm run preview
-```
+Tidak ada workflow CI/CD (GitHub Actions dsb.) di repo ini. Folder `.vercel` diabaikan oleh git, yang mengindikasikan deployment dilakukan secara manual melalui Vercel, namun tidak ada konfigurasi Vercel yang tersimpan di repo.
 
-`npm run verify` adalah pemeriksa parity lama terhadap snapshot Tennis Club di `_backup/index.html`. Karena konten kini sengaja berubah menjadi Asy-Syifa, perbandingan visual lama tersebut bukan lagi kriteria penerimaan.
+## Kredit
 
-## Struktur
-
-- `src/data/` — konten dan referensi asset.
-- `src/modules/` — modul perilaku halaman.
-- `src/styles/main.css` — entry point yang mengimpor stylesheet kategori.
-- `src/styles/base.css` — tokens, reset, document defaults, dan utilities.
-- `src/styles/hero.css` — loader, header, dan hero.
-- `src/styles/sections.css` — trust, programs, facilities, stats, dan testimonials.
-- `src/styles/footer.css` — footer.
-- `src/styles/overlays.css` — modal dan menu overlay.
-- `src/styles/motion.css` — preferensi reduced motion.
-- `src/data/prices.js` dan `harga.html` — data serta halaman rincian paket dan harga.
-- `src/pricing.js` — render kategori harga dengan elemen disclosure native.
-- `src/main.tsx` dan `src/App.tsx` — React entry point dan mount halaman.
-- `src/home-bootstrap.js` — efek dan interaksi landing page yang dipertahankan selama transisi.
-- `src/pricing.js` dan `src/service-page.js` — render rincian harga dan halaman paket setelah React mount.
-- `_backup/index.html` — snapshot baseline sebelum migrasi.
+Dibuat oleh **Ranupane Rimba Argana**, founder [Kukerjain](https://kukerjain.dev).
+Profil: [ranupane.kukerjain.dev](https://ranupane.kukerjain.dev)
