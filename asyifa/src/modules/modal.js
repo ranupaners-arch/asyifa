@@ -2,6 +2,7 @@
 import { stopLenis, startLenis } from './smooth-scroll.js';
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+const publicBranchId = 2;
 
 export function openModal() {
   const backdrop = document.getElementById('modalBackdrop');
@@ -106,7 +107,7 @@ export function setupModalForm() {
     const response = await fetch(`${apiBaseUrl}/api/bookings`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ name, phone, serviceName: service, bookingDate, startTime, notes: message })
+      body: JSON.stringify({ name, phone, serviceName: service, bookingDate, startTime, notes: message, branchId: publicBranchId })
     });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || 'Reservasi belum dapat disimpan.');

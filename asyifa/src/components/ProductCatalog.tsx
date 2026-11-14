@@ -5,16 +5,14 @@ import maduManggaImage from '../assets/madu-mangga.jpeg';
 import maduKelengkengImage from '../assets/madu-kelengkeng.jpeg';
 import maduRambutanImage from '../assets/madu-rambutan.jpeg';
 import maduHutanSuperImage from '../assets/madu-hutan-super.jpeg';
+import { honeyProducts, productSizes } from '../data/products.js';
 
-const sizes = ['250 ml', '500 ml', '1 kg'] as const;
+const sizes = productSizes;
 
-const products = [
-  { name: 'Madu Randu', note: 'Ilustrasi bunga randu', image: randuImage },
-  { name: 'Madu Hutan Super', note: 'Foto produk Madu Hutan Super', image: maduHutanSuperImage },
-  { name: 'Madu Mangga', note: 'Foto produk Madu Mangga', image: maduManggaImage },
-  { name: 'Madu Kelengkeng', note: 'Foto produk Madu Kelengkeng', image: maduKelengkengImage },
-  { name: 'Madu Rambutan', note: 'Foto produk Madu Rambutan', image: maduRambutanImage }
-];
+const products = honeyProducts.map((product, index) => ({
+  ...product,
+  image: [randuImage, maduHutanSuperImage, maduManggaImage, maduKelengkengImage, maduRambutanImage][index]
+}));
 
 function inquiryLink(product: string, size: string) {
   const text = `Halo Asy-Syifa, saya ingin menanyakan ketersediaan ${product} ukuran ${size} dan harganya.`;

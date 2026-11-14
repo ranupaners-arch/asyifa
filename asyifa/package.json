@@ -9,6 +9,7 @@
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
+    "sync:catalog": "node --env-file-if-exists=.env.local scripts/sync-public-catalog.mjs",
     "verify": "node scripts/verify.mjs"
   },
   "dependencies": {

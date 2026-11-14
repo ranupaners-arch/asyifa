@@ -1,7 +1,12 @@
-node_modules
-dist
+node_modules/
+dist/
+.next/
+out/
 .DS_Store
 _compare/
 *.log
-.vercel
-.env*
+.vercel/
+.env
+.env.local
+.env.*.local
+!.env.example

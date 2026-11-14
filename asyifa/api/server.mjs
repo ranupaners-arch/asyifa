@@ -21,7 +21,7 @@ const pool = mysql.createPool({
 const sendJson = (res, status, body) => {
   res.writeHead(status, {
     'content-type': 'application/json; charset=utf-8',
-    'access-control-allow-origin': process.env.CORS_ORIGIN || 'http://localhost:5173',
+    'access-control-allow-origin': process.env.CORS_ORIGIN || '*',
     'access-control-allow-headers': 'authorization, content-type',
     'access-control-allow-methods': 'GET,POST,PATCH,OPTIONS'
   });
@@ -32,7 +32,7 @@ const readJson = req => new Promise((resolve, reject) => {
   let body = '';
   req.on('data', chunk => {
     body += chunk;
-    if (body.length > 100_000) reject(new Error('Payload terlalu besar.'));
+    if (body.length > 5_500_000) reject(new Error('Payload terlalu besar.'));
   });
   req.on('end', () => {
     try { resolve(JSON.parse(body || '{}')); }
@@ -64,7 +64,7 @@ const passwordMatches = async (password, encoded) => {
   const target = Buffer.from(expected, 'base64url');
   return target.length === actual.length && timingSafeEqual(target, actual);
 };
-const publicUser = user => ({ id: user.id, name: user.name, email: user.email, role: user.role, branchId: user.branch_id ?? user.branchId ?? null });
+const publicUser = user => ({ id: user.id, name: user.name, email: user.email, role: user.role, branchId: user.branch_id ?? user.branchId ?? null, avatarUrl: user.avatar_url ?? user.avatarUrl ?? null });
 const createSession = userId => {
   const token = randomBytes(32).toString('base64url');
   sessions.set(token, { userId, expiresAt: Date.now() + sessionLifetimeMs });
@@ -82,7 +82,7 @@ const getAuthenticatedUser = async req => {
     return null;
   }
   const [rows] = await pool.execute(
-    'SELECT id, name, email, role, branch_id FROM users WHERE id = ? AND is_active = 1 LIMIT 1',
+    'SELECT id, name, email, role, branch_id, avatar_url FROM users WHERE id = ? AND is_active = 1 LIMIT 1',
     [session.userId]
   );
   return rows[0] || null;
@@ -188,6 +188,39 @@ async function createBooking(payload) {
 const server = createServer(async (req, res) => {
   if (req.method === 'OPTIONS') return sendJson(res, 204, {});
   const requestUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+  if (requestUrl.pathname === '/api/catalog' && req.method === 'GET') {
+    try {
+      const requestedBranch = requestUrl.searchParams.get('branch_id');
+      const branchId = requestedBranch ? Number(requestedBranch) : null;
+      if (requestedBranch && !Number.isInteger(branchId)) return sendJson(res, 400, { error: 'Filter cabang tidak valid.' });
+      const serviceWhere = branchId === null ? 'WHERE s.is_active = 1' : 'WHERE s.is_active = 1 AND (s.branch_id IS NULL OR s.branch_id = ?)';
+      const productWhere = branchId === null ? 'WHERE p.is_active = 1' : 'WHERE p.is_active = 1 AND (p.branch_id IS NULL OR p.branch_id = ?)';
+      const params = branchId === null ? [] : [branchId];
+      const [[services], [products]] = await Promise.all([
+        pool.execute(
+          `SELECT s.id, s.name, s.slug, s.category, s.description, s.duration_minutes, s.price, s.branch_id,
+                  b.name AS branch_name
+           FROM services s
+           LEFT JOIN branches b ON b.id = s.branch_id
+           ${serviceWhere}
+           ORDER BY s.category ASC, s.name ASC`,
+          params
+        ),
+        pool.execute(
+          `SELECT p.id, p.name, p.slug, p.description, p.image_url, p.available_sizes, p.branch_id,
+                  b.name AS branch_name
+           FROM products p
+           LEFT JOIN branches b ON b.id = p.branch_id
+           ${productWhere}
+           ORDER BY p.name ASC`,
+          params
+        )
+      ]);
+      return sendJson(res, 200, { services, products });
+    } catch (error) {
+      return sendJson(res, 500, { error: error.message });
+    }
+  }
   if (requestUrl.pathname === '/api/auth/setup' && req.method === 'GET') {
     try {
       return sendJson(res, 200, { setupRequired: await setupRequired() });
@@ -220,7 +253,7 @@ const server = createServer(async (req, res) => {
       const email = normalizeEmail(payload.email);
       const password = requiredText(payload.password, 'Password', 128);
       const [rows] = await pool.execute(
-        'SELECT id, name, email, password_hash, role, is_active FROM users WHERE email = ? LIMIT 1',
+        'SELECT id, name, email, password_hash, role, branch_id, avatar_url, is_active FROM users WHERE email = ? LIMIT 1',
         [email]
       );
       const user = rows[0];
@@ -243,6 +276,52 @@ const server = createServer(async (req, res) => {
       return sendJson(res, 500, { error: error.message });
     }
   }
+  if (requestUrl.pathname === '/api/auth/profile' && req.method === 'PATCH') {
+    try {
+      const user = await requireUser(req, res);
+      if (!user) return;
+      const payload = await readJson(req);
+      const currentPassword = requiredText(payload.currentPassword, 'Password saat ini', 128);
+      const [[account]] = await pool.query('SELECT password_hash FROM users WHERE id = ? LIMIT 1', [user.id]);
+      if (!account || !(await passwordMatches(currentPassword, account.password_hash))) {
+        return sendJson(res, 401, { error: 'Password saat ini tidak tepat.' });
+      }
+
+      const updates = [];
+      const values = [];
+      if (payload.email !== undefined) {
+        const email = normalizeEmail(payload.email);
+        const [existing] = await pool.execute('SELECT id FROM users WHERE email = ? AND id <> ? LIMIT 1', [email, user.id]);
+        if (existing.length) return sendJson(res, 409, { error: 'Email sudah digunakan akun lain.' });
+        updates.push('email = ?');
+        values.push(email);
+      }
+      if (payload.newPassword !== undefined && payload.newPassword !== '') {
+        const newPassword = requiredText(payload.newPassword, 'Password baru', 128);
+        if (newPassword.length < 8) throw new Error('Password baru minimal 8 karakter.');
+        updates.push('password_hash = ?');
+        values.push(await passwordHash(newPassword));
+      }
+      if (payload.avatarUrl !== undefined) {
+        if (payload.avatarUrl !== null && (typeof payload.avatarUrl !== 'string' || !payload.avatarUrl.startsWith('data:image/'))) {
+          throw new Error('Foto profil harus berupa gambar yang valid.');
+        }
+        if (typeof payload.avatarUrl === 'string' && payload.avatarUrl.length > 5_000_000) {
+          throw new Error('Ukuran foto profil terlalu besar.');
+        }
+        updates.push('avatar_url = ?');
+        values.push(payload.avatarUrl);
+      }
+      if (!updates.length) throw new Error('Tidak ada perubahan profil.');
+      values.push(user.id);
+      await pool.execute(`UPDATE users SET ${updates.join(', ')} WHERE id = ?`, values);
+      const [[updated]] = await pool.query('SELECT id, name, email, role, branch_id, avatar_url FROM users WHERE id = ? LIMIT 1', [user.id]);
+      return sendJson(res, 200, { user: publicUser(updated) });
+    } catch (error) {
+      const clientError = /wajib|terlalu panjang|minimal|valid|perubahan/.test(error.message);
+      return sendJson(res, clientError ? 400 : 500, { error: error.message });
+    }
+  }
   if (requestUrl.pathname === '/api/auth/logout' && req.method === 'POST') {
     const token = sessionToken(req);
     if (token) sessions.delete(token);
@@ -252,10 +331,14 @@ const server = createServer(async (req, res) => {
     try {
       const actor = await requireUser(req, res, ['owner', 'admin']);
       if (!actor) return;
+      const requestedBranch = requestUrl.searchParams.get('branch_id');
+      const selectedBranch = requestedBranch ? Number(requestedBranch) : actor.branch_id;
+      if (requestedBranch && !Number.isInteger(selectedBranch)) return sendJson(res, 400, { error: 'Filter cabang tidak valid.' });
+      const branchFilter = selectedBranch === null ? '' : ' AND u.branch_id = ?';
       const userQuery = actor.role === 'owner'
-        ? "SELECT u.id, u.name, u.email, u.role, u.branch_id, b.name AS branch_name, u.is_active, u.created_at FROM users u LEFT JOIN branches b ON b.id = u.branch_id WHERE u.role IN ('admin', 'staff') ORDER BY u.name ASC"
-        : "SELECT u.id, u.name, u.email, u.role, u.branch_id, b.name AS branch_name, u.is_active, u.created_at FROM users u LEFT JOIN branches b ON b.id = u.branch_id WHERE u.role = 'staff' AND (u.branch_id = ? OR ? IS NULL) ORDER BY u.name ASC";
-      const [rows] = await pool.execute(userQuery, actor.role === 'admin' ? [actor.branch_id, actor.branch_id] : []);
+        ? `SELECT u.id, u.name, u.email, u.role, u.branch_id, b.name AS branch_name, u.is_active, u.created_at FROM users u LEFT JOIN branches b ON b.id = u.branch_id WHERE u.role IN ('admin', 'staff')${branchFilter} ORDER BY u.name ASC`
+        : `SELECT u.id, u.name, u.email, u.role, u.branch_id, b.name AS branch_name, u.is_active, u.created_at FROM users u LEFT JOIN branches b ON b.id = u.branch_id WHERE u.role = 'staff'${branchFilter} ORDER BY u.name ASC`;
+      const [rows] = await pool.execute(userQuery, selectedBranch === null ? [] : [selectedBranch]);
       return sendJson(res, 200, { users: rows });
     } catch (error) {
       return sendJson(res, 500, { error: error.message });
@@ -342,10 +425,12 @@ const server = createServer(async (req, res) => {
       const actor = await requireUser(req, res, ['owner', 'admin']);
       if (!actor) return;
       const requestedBranch = requestUrl.searchParams.get('branch_id');
-      const branchId = requestedBranch ? Number(requestedBranch) : (actor.role === 'admin' ? actor.branch_id : null);
+      let branchId = requestedBranch ? Number(requestedBranch) : (actor.role === 'admin' ? actor.branch_id : null);
       if (branchId !== null && !Number.isInteger(branchId)) return sendJson(res, 400, { error: 'Cabang tidak valid.' });
       if (req.method === 'POST') {
         const payload = await readJson(req);
+        const submittedBranch = payload.branchId === null || payload.branchId === undefined || payload.branchId === '' ? null : Number(payload.branchId);
+        branchId = submittedBranch ?? branchId;
         const direction = payload.direction === 'out' ? 'out' : payload.direction === 'in' ? 'in' : null;
         const amount = Number(payload.amount);
         const occurredOn = requiredText(payload.occurredOn, 'Tanggal', 10);
@@ -373,15 +458,19 @@ const server = createServer(async (req, res) => {
       const user = await requireUser(req, res);
       if (!user) return;
       const status = requestUrl.searchParams.get('status');
+      const requestedBranch = requestUrl.searchParams.get('branch_id');
+      const branchId = requestedBranch ? Number(requestedBranch) : user.branch_id;
+      if (requestedBranch && !Number.isInteger(branchId)) return sendJson(res, 400, { error: 'Filter cabang tidak valid.' });
       const params = []; const conditions = [];
       if (status && bookingStatuses.includes(status)) { conditions.push('b.status = ?'); params.push(status); }
-      if (user.role !== 'owner' && user.branch_id !== null) { conditions.push('b.branch_id = ?'); params.push(user.branch_id); }
+      if (branchId !== null) { conditions.push('b.branch_id = ?'); params.push(branchId); }
       const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
       const [rows] = await pool.execute(
         `SELECT b.reference, c.name, c.phone, b.service_name, b.booking_date,
-                b.start_time, b.notes, b.status, b.created_at
+                b.start_time, b.notes, b.status, b.branch_id, br.name AS branch_name, b.created_at
          FROM bookings b
          JOIN customers c ON c.id = b.customer_id
+         LEFT JOIN branches br ON br.id = b.branch_id
          ${where}
          ORDER BY b.booking_date ASC, b.start_time ASC, b.id DESC`,
         params
